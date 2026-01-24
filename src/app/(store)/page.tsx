@@ -1,149 +1,206 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Truck, Shield, Headphones, CreditCard, RotateCcw, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, Truck, Shield, CreditCard, RotateCcw, Heart, Eye, ShoppingCart, Star, ChevronRight, Laptop, Smartphone, Monitor, Headphones, Printer, Wifi, Gamepad2, HardDrive } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 const categories = [
-  { name: "Laptops", slug: "laptops", icon: "💻" },
-  { name: "Phones", slug: "phones", icon: "📱" },
-  { name: "Tablets", slug: "tablets", icon: "📲" },
-  { name: "Desktops", slug: "desktops", icon: "🖥️" },
-  { name: "Printers", slug: "printers", icon: "🖨️" },
-  { name: "Accessories", slug: "accessories", icon: "🎧" },
-  { name: "Networking", slug: "networking", icon: "📡" },
-  { name: "Storage", slug: "storage", icon: "💾" },
+  { name: "Laptops", slug: "laptops", icon: Laptop, count: 156, color: "bg-blue-50 text-blue-600" },
+  { name: "Phones", slug: "phones", icon: Smartphone, count: 243, color: "bg-green-50 text-green-600" },
+  { name: "Monitors", slug: "monitors", icon: Monitor, count: 89, color: "bg-purple-50 text-purple-600" },
+  { name: "Audio", slug: "audio", icon: Headphones, count: 178, color: "bg-orange-50 text-orange-600" },
+  { name: "Printers", slug: "printers", icon: Printer, count: 67, color: "bg-red-50 text-red-600" },
+  { name: "Networking", slug: "networking", icon: Wifi, count: 94, color: "bg-cyan-50 text-cyan-600" },
+  { name: "Gaming", slug: "gaming", icon: Gamepad2, count: 112, color: "bg-pink-50 text-pink-600" },
+  { name: "Storage", slug: "storage", icon: HardDrive, count: 145, color: "bg-amber-50 text-amber-600" },
 ];
 
 const featuredProducts = [
   {
     id: "1",
-    name: "Dell Latitude 7430",
+    name: "Dell Latitude 7430 Business Laptop",
     slug: "dell-latitude-7430",
     price: 8500,
     compareAtPrice: 9500,
     image: "/images/products/dell-latitude.jpg",
     brand: "Dell",
+    rating: 4.8,
+    reviews: 124,
     tag: "Hot",
+    isNew: true,
   },
   {
     id: "2",
-    name: "HP ProBook 450 G9",
+    name: "HP ProBook 450 G9 Notebook",
     slug: "hp-probook-450",
     price: 6200,
     image: "/images/products/hp-probook.jpg",
     brand: "HP",
+    rating: 4.6,
+    reviews: 89,
   },
   {
     id: "3",
-    name: "Lenovo ThinkPad E14",
+    name: "Lenovo ThinkPad E14 Gen 4",
     slug: "lenovo-thinkpad-e14",
     price: 5800,
     compareAtPrice: 6500,
     image: "/images/products/lenovo-thinkpad.jpg",
     brand: "Lenovo",
-    tag: "Sale",
+    rating: 4.7,
+    reviews: 156,
+    tag: "-11%",
   },
   {
     id: "4",
-    name: "Jabra Elite 85h",
-    slug: "jabra-elite-85h",
-    price: 1200,
-    image: "/images/products/jabra-elite.jpg",
-    brand: "Jabra",
+    name: "MacBook Air M2 13-inch",
+    slug: "macbook-air-m2",
+    price: 9800,
+    image: "/images/products/macbook-air.jpg",
+    brand: "Apple",
+    rating: 4.9,
+    reviews: 312,
+    isNew: true,
   },
   {
     id: "5",
-    name: "Anker PowerCore 20000",
-    slug: "anker-powercore",
-    price: 350,
-    image: "/images/products/anker-powercore.jpg",
-    brand: "Anker",
+    name: "ASUS ROG Strix G15 Gaming",
+    slug: "asus-rog-strix",
+    price: 7500,
+    compareAtPrice: 8200,
+    image: "/images/products/asus-rog.jpg",
+    brand: "ASUS",
+    rating: 4.5,
+    reviews: 78,
+    tag: "-9%",
+  },
+  {
+    id: "6",
+    name: "Acer Aspire 5 Slim Laptop",
+    slug: "acer-aspire-5",
+    price: 4200,
+    image: "/images/products/acer-aspire.jpg",
+    brand: "Acer",
+    rating: 4.4,
+    reviews: 203,
+  },
+  {
+    id: "7",
+    name: "Samsung Galaxy Book3 Pro",
+    slug: "samsung-galaxy-book3",
+    price: 8900,
+    image: "/images/products/samsung-book3.jpg",
+    brand: "Samsung",
+    rating: 4.7,
+    reviews: 67,
+    isNew: true,
+  },
+  {
+    id: "8",
+    name: "Microsoft Surface Laptop 5",
+    slug: "surface-laptop-5",
+    price: 7200,
+    compareAtPrice: 7800,
+    image: "/images/products/surface-laptop.jpg",
+    brand: "Microsoft",
+    rating: 4.6,
+    reviews: 145,
+    tag: "-8%",
   },
 ];
 
-const topSelling = [
-  { id: "1", name: "NASCO NAS-221SV IRON", price: 89, image: "/images/products/nasco-iron.jpg", brand: "NASCO" },
-  { id: "2", name: "iPhone 15 Pro Max", price: 12500, compareAtPrice: 13500, image: "/images/products/iphone-15-pro.jpg", brand: "Apple" },
-  { id: "3", name: "Samsung Galaxy S24", price: 8900, image: "/images/products/samsung-s24.jpg", brand: "Samsung" },
-  { id: "4", name: "AirPods Pro 2nd Gen", price: 1800, image: "/images/products/airpods-pro.jpg", brand: "Apple" },
-  { id: "5", name: "Logitech MX Master 3", price: 850, image: "/images/products/mx-master.jpg", brand: "Logitech" },
-  { id: "6", name: "Samsung 27\" Monitor", price: 2200, image: "/images/products/samsung-monitor.jpg", brand: "Samsung" },
+const newArrivals = [
+  { id: "1", name: "iPhone 15 Pro Max 256GB", price: 12500, image: "/images/products/iphone-15-pro.jpg", brand: "Apple", rating: 4.9 },
+  { id: "2", name: "Samsung Galaxy S24 Ultra", price: 10900, image: "/images/products/samsung-s24.jpg", brand: "Samsung", rating: 4.8 },
+  { id: "3", name: "Google Pixel 8 Pro", price: 8500, image: "/images/products/pixel-8.jpg", brand: "Google", rating: 4.7 },
+  { id: "4", name: "Sony WH-1000XM5 Headphones", price: 2800, image: "/images/products/sony-xm5.jpg", brand: "Sony", rating: 4.9 },
 ];
 
-const brands = [
-  { name: "HP", logo: "/images/brands/hp.png" },
-  { name: "Lenovo", logo: "/images/brands/lenovo.png" },
-  { name: "Dell", logo: "/images/brands/dell.png" },
-  { name: "Samsung", logo: "/images/brands/samsung.png" },
-  { name: "Apple", logo: "/images/brands/apple.png" },
-  { name: "Logitech", logo: "/images/brands/logitech.png" },
-];
+const brands = ["HP", "Dell", "Lenovo", "Apple", "Samsung", "ASUS", "Acer", "Microsoft"];
 
 const trustFeatures = [
-  { icon: Truck, title: "Fast Delivery", description: "1-2 days in Greater Accra" },
-  { icon: Shield, title: "Warranty", description: "Genuine products guaranteed" },
-  { icon: CreditCard, title: "Secure Payment", description: "MoMo, Cards, Bank Transfer" },
+  { icon: Truck, title: "Free Shipping", description: "On orders over GHS 500" },
+  { icon: Shield, title: "Secure Payment", description: "100% secure checkout" },
   { icon: RotateCcw, title: "Easy Returns", description: "7-day return policy" },
+  { icon: CreditCard, title: "Flexible Payment", description: "MoMo, Cards, Bank" },
 ];
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col bg-gray-50">
-      {/* Hero Banners */}
-      <section className="bg-white">
-        <div className="container py-4">
-          <div className="grid gap-4 md:grid-cols-3">
-            {/* Main Banner */}
-            <div className="md:col-span-2 relative rounded-lg overflow-hidden bg-gradient-to-r from-yellow-400 to-yellow-300 p-6 md:p-8 min-h-[280px]">
-              <div className="relative z-10 max-w-md">
-                <Badge className="bg-black text-white mb-3">INTACT GHANA</Badge>
-                <h2 className="text-2xl md:text-3xl font-bold text-black mb-2">
-                  Take it Home Today<br />Pay Later with CanPay
-                </h2>
-                <p className="text-black/80 mb-4">
-                  Shop easily with Intact Ghana, select CanPay to Buy Now, Pay Later
-                </p>
-                <Button className="bg-black text-white hover:bg-gray-800">
+    <div className="flex flex-col">
+      {/* Hero Section - Kumo Style */}
+      <section className="bg-slate-100">
+        <div className="container py-6 lg:py-10">
+          <div className="grid gap-6 lg:grid-cols-2 items-center">
+            {/* Hero Content */}
+            <div className="order-2 lg:order-1">
+              <Badge className="bg-primary/10 text-primary border-0 mb-4">New Collection 2024</Badge>
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight mb-4">
+                Premium Electronics<br />
+                <span className="text-primary">For Every Need</span>
+              </h1>
+              <p className="text-slate-600 text-lg mb-6 max-w-lg">
+                Discover the latest laptops, phones, and accessories from top brands. 
+                Quality guaranteed with warranty and fast delivery across Ghana.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Button size="lg" className="bg-slate-900 hover:bg-slate-800">
                   Shop Now <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
+                <Button size="lg" variant="outline" className="border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white">
+                  View Deals
+                </Button>
               </div>
-              <div className="absolute right-0 bottom-0 w-1/2 h-full bg-contain bg-no-repeat bg-right-bottom opacity-90" />
+              
+              {/* Stats */}
+              <div className="flex gap-8 mt-8 pt-8 border-t">
+                <div>
+                  <p className="text-2xl font-bold text-slate-900">15K+</p>
+                  <p className="text-sm text-slate-500">Products</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-slate-900">50K+</p>
+                  <p className="text-sm text-slate-500">Customers</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-slate-900">100+</p>
+                  <p className="text-sm text-slate-500">Brands</p>
+                </div>
+              </div>
             </div>
             
-            {/* Side Banners */}
-            <div className="space-y-4">
-              <div className="rounded-lg overflow-hidden bg-gradient-to-br from-gray-900 to-gray-800 p-5 text-white min-h-[130px]">
-                <p className="text-xs text-gray-400 mb-1">NEW ARRIVAL</p>
-                <h3 className="font-bold text-lg mb-2">Galaxy Unpacked</h3>
-                <p className="text-sm text-gray-300">Discover the latest Samsung devices</p>
-              </div>
-              <div className="rounded-lg overflow-hidden bg-gradient-to-br from-red-500 to-red-600 p-5 text-white min-h-[130px]">
-                <Badge className="bg-white text-red-600 mb-2">HOT DEAL</Badge>
-                <h3 className="font-bold text-lg mb-1">Sale!</h3>
-                <p className="text-sm">Up to 30% off on selected items</p>
-                <Button size="sm" variant="secondary" className="mt-2">
-                  Shop Now
-                </Button>
+            {/* Hero Image/Banner */}
+            <div className="order-1 lg:order-2 relative">
+              <div className="relative bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl p-8 lg:p-12">
+                <div className="aspect-square max-w-md mx-auto bg-white/50 rounded-xl flex items-center justify-center">
+                  <div className="text-center p-8">
+                    <Laptop className="h-24 w-24 mx-auto text-slate-400 mb-4" />
+                    <p className="text-slate-500">Featured Product Image</p>
+                  </div>
+                </div>
+                {/* Floating Badge */}
+                <div className="absolute top-4 right-4 bg-red-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
+                  Up to 30% OFF
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Trust Features Bar */}
+      {/* Trust Features - Kumo Style */}
       <section className="bg-white border-y">
-        <div className="container py-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="container py-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {trustFeatures.map((feature) => (
-              <div key={feature.title} className="flex items-center gap-3">
-                <div className="shrink-0 w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
-                  <feature.icon className="h-5 w-5 text-gray-600" />
+              <div key={feature.title} className="flex items-center gap-4 group">
+                <div className="shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+                  <feature.icon className="h-5 w-5 text-primary group-hover:text-white" />
                 </div>
                 <div>
-                  <p className="font-medium text-sm">{feature.title}</p>
-                  <p className="text-xs text-gray-500">{feature.description}</p>
+                  <p className="font-semibold text-slate-900">{feature.title}</p>
+                  <p className="text-sm text-slate-500">{feature.description}</p>
                 </div>
               </div>
             ))}
@@ -151,134 +208,212 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Categories */}
-      <section className="bg-white mt-4">
-        <div className="container py-6">
-          <div className="flex items-center gap-2 mb-4">
-            <Button size="sm" className="bg-black text-white hover:bg-gray-800">
-              Categories
-            </Button>
+      {/* Categories - Kumo Style Grid */}
+      <section className="py-12 lg:py-16">
+        <div className="container">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h2 className="text-2xl lg:text-3xl font-bold text-slate-900">Shop by Category</h2>
+              <p className="text-slate-500 mt-1">Browse our wide range of products</p>
+            </div>
+            <Link href="/categories" className="hidden sm:flex items-center gap-1 text-primary hover:underline font-medium">
+              View All <ChevronRight className="h-4 w-4" />
+            </Link>
           </div>
-          <div className="flex gap-3 overflow-x-auto pb-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4">
             {categories.map((category) => (
               <Link
                 key={category.slug}
                 href={`/category/${category.slug}`}
-                className="shrink-0 flex flex-col items-center gap-2 p-3 rounded-lg border bg-white hover:border-gray-400 hover:shadow-sm transition-all min-w-[90px]"
+                className="group flex flex-col items-center p-4 lg:p-6 rounded-xl border bg-white hover:border-primary hover:shadow-lg transition-all"
               >
-                <span className="text-2xl">{category.icon}</span>
-                <span className="text-xs font-medium text-center">{category.name}</span>
+                <div className={`w-14 h-14 rounded-full ${category.color} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform`}>
+                  <category.icon className="h-6 w-6" />
+                </div>
+                <span className="font-medium text-slate-900 text-sm text-center">{category.name}</span>
+                <span className="text-xs text-slate-400 mt-1">{category.count} items</span>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Featured Products */}
-      <section className="bg-white mt-4">
-        <div className="container py-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold">Featured Products</h2>
-            <Link href="/products" className="text-sm text-primary hover:underline">
-              View All
+      {/* Featured Products - Kumo Style with Hover Actions */}
+      <section className="py-12 lg:py-16 bg-slate-50">
+        <div className="container">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h2 className="text-2xl lg:text-3xl font-bold text-slate-900">Featured Products</h2>
+              <p className="text-slate-500 mt-1">Handpicked products just for you</p>
+            </div>
+            <Link href="/products" className="hidden sm:flex items-center gap-1 text-primary hover:underline font-medium">
+              View All <ChevronRight className="h-4 w-4" />
             </Link>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
             {featuredProducts.map((product) => (
-              <Link key={product.id} href={`/product/${product.slug}`}>
-                <Card className="group overflow-hidden hover:shadow-lg transition-shadow border">
-                  <div className="relative aspect-square bg-gray-50 p-4">
-                    <div className="absolute inset-0 flex items-center justify-center text-gray-400 text-xs">
-                      {product.brand}
-                    </div>
+              <div key={product.id} className="group bg-white rounded-xl border overflow-hidden hover:shadow-xl transition-all duration-300">
+                {/* Product Image */}
+                <div className="relative aspect-square bg-slate-50 overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center text-slate-300">
+                    <Laptop className="h-16 w-16" />
+                  </div>
+                  
+                  {/* Badges */}
+                  <div className="absolute top-3 left-3 flex flex-col gap-1">
+                    {product.isNew && (
+                      <Badge className="bg-green-500 text-white text-xs">New</Badge>
+                    )}
                     {product.tag && (
-                      <Badge className={`absolute left-2 top-2 text-xs ${product.tag === 'Hot' ? 'bg-red-500' : 'bg-orange-500'}`}>
+                      <Badge className={`text-xs ${product.tag === 'Hot' ? 'bg-red-500 text-white' : 'bg-orange-500 text-white'}`}>
                         {product.tag}
                       </Badge>
                     )}
                   </div>
-                  <CardContent className="p-3">
-                    <p className="text-[10px] text-gray-500 uppercase">{product.brand}</p>
-                    <h3 className="text-sm font-medium line-clamp-2 min-h-[40px]">{product.name}</h3>
-                    <div className="mt-2">
-                      <span className="font-bold text-primary">
-                        GHS {product.price.toLocaleString()}
-                      </span>
-                      {product.compareAtPrice && (
-                        <span className="ml-2 text-xs text-gray-400 line-through">
-                          GHS {product.compareAtPrice.toLocaleString()}
-                        </span>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Top Selling */}
-      <section className="bg-white mt-4">
-        <div className="container py-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold">Top Selling of the Week</h2>
-            <Link href="/bestsellers" className="text-sm text-primary hover:underline">
-              View All
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {topSelling.map((product) => (
-              <Link key={product.id} href={`/product/${product.id}`}>
-                <Card className="group overflow-hidden hover:shadow-lg transition-shadow border h-full">
-                  <div className="relative aspect-square bg-gray-50 p-3">
-                    <div className="absolute inset-0 flex items-center justify-center text-gray-400 text-xs">
-                      {product.brand}
-                    </div>
+                  
+                  {/* Hover Actions - Kumo Style */}
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                    <button className="w-10 h-10 rounded-full bg-white text-slate-900 flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                      <Heart className="h-4 w-4" />
+                    </button>
+                    <button className="w-10 h-10 rounded-full bg-white text-slate-900 flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                      <Eye className="h-4 w-4" />
+                    </button>
+                    <button className="w-10 h-10 rounded-full bg-white text-slate-900 flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                      <ShoppingCart className="h-4 w-4" />
+                    </button>
                   </div>
-                  <CardContent className="p-3">
-                    <h3 className="text-xs font-medium line-clamp-2">{product.name}</h3>
-                    <div className="mt-1">
-                      <span className="text-sm font-bold text-primary">
-                        GHS {product.price.toLocaleString()}
-                      </span>
+                </div>
+                
+                {/* Product Info */}
+                <div className="p-4">
+                  <p className="text-xs text-slate-400 uppercase tracking-wide">{product.brand}</p>
+                  <Link href={`/product/${product.slug}`}>
+                    <h3 className="font-medium text-slate-900 mt-1 line-clamp-2 hover:text-primary transition-colors">
+                      {product.name}
+                    </h3>
+                  </Link>
+                  
+                  {/* Rating */}
+                  <div className="flex items-center gap-1 mt-2">
+                    <div className="flex">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className={`h-3 w-3 ${i < Math.floor(product.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-slate-200'}`} />
+                      ))}
                     </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Brands */}
-      <section className="bg-white mt-4 mb-4">
-        <div className="container py-6">
-          <div className="flex items-center justify-center gap-8 md:gap-16 flex-wrap">
-            {brands.map((brand) => (
-              <div key={brand.name} className="text-2xl font-bold text-gray-300 hover:text-gray-500 transition-colors">
-                {brand.name}
+                    <span className="text-xs text-slate-400">({product.reviews})</span>
+                  </div>
+                  
+                  {/* Price */}
+                  <div className="flex items-center gap-2 mt-3">
+                    <span className="text-lg font-bold text-primary">
+                      GHS {product.price.toLocaleString()}
+                    </span>
+                    {product.compareAtPrice && (
+                      <span className="text-sm text-slate-400 line-through">
+                        GHS {product.compareAtPrice.toLocaleString()}
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Newsletter */}
-      <section className="bg-black text-white py-8">
+      {/* Promo Banner - Kumo Style */}
+      <section className="py-12 lg:py-16">
         <div className="container">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div>
-              <h3 className="text-lg font-bold">Subscribe To Our Newsletter</h3>
-              <p className="text-gray-400 text-sm">Get updates on new products and exclusive deals</p>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-slate-900 to-slate-800 p-8 lg:p-10 text-white min-h-[250px]">
+              <div className="relative z-10 max-w-sm">
+                <Badge className="bg-primary text-white border-0 mb-3">Limited Offer</Badge>
+                <h3 className="text-2xl lg:text-3xl font-bold mb-2">MacBook Air M2</h3>
+                <p className="text-slate-300 mb-4">Experience the power of Apple Silicon</p>
+                <Button className="bg-white text-slate-900 hover:bg-slate-100">
+                  Shop Now <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
             </div>
-            <div className="flex gap-2 w-full md:w-auto">
+            <div className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-primary to-primary/80 p-8 lg:p-10 text-white min-h-[250px]">
+              <div className="relative z-10 max-w-sm">
+                <Badge className="bg-white text-primary border-0 mb-3">New Arrival</Badge>
+                <h3 className="text-2xl lg:text-3xl font-bold mb-2">iPhone 15 Pro</h3>
+                <p className="text-white/80 mb-4">Titanium. So strong. So light. So Pro.</p>
+                <Button variant="secondary" className="bg-white text-primary hover:bg-slate-100">
+                  Explore <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* New Arrivals - Kumo Style */}
+      <section className="py-12 lg:py-16 bg-white">
+        <div className="container">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h2 className="text-2xl lg:text-3xl font-bold text-slate-900">New Arrivals</h2>
+              <p className="text-slate-500 mt-1">Check out our latest products</p>
+            </div>
+            <Link href="/new-arrivals" className="hidden sm:flex items-center gap-1 text-primary hover:underline font-medium">
+              View All <ChevronRight className="h-4 w-4" />
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+            {newArrivals.map((product) => (
+              <Link key={product.id} href={`/product/${product.id}`} className="group">
+                <div className="bg-slate-50 rounded-xl p-6 mb-4 group-hover:bg-slate-100 transition-colors">
+                  <div className="aspect-square flex items-center justify-center">
+                    <Smartphone className="h-20 w-20 text-slate-300" />
+                  </div>
+                </div>
+                <p className="text-xs text-slate-400 uppercase">{product.brand}</p>
+                <h3 className="font-medium text-slate-900 group-hover:text-primary transition-colors">{product.name}</h3>
+                <div className="flex items-center gap-1 mt-1">
+                  <Star className="h-3 w-3 text-yellow-400 fill-yellow-400" />
+                  <span className="text-sm text-slate-600">{product.rating}</span>
+                </div>
+                <p className="text-lg font-bold text-primary mt-2">GHS {product.price.toLocaleString()}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Brands - Kumo Style */}
+      <section className="py-12 lg:py-16 bg-slate-50">
+        <div className="container">
+          <h2 className="text-2xl font-bold text-slate-900 text-center mb-8">Shop by Brand</h2>
+          <div className="flex items-center justify-center gap-8 lg:gap-16 flex-wrap">
+            {brands.map((brand) => (
+              <Link 
+                key={brand} 
+                href={`/brand/${brand.toLowerCase()}`}
+                className="text-2xl lg:text-3xl font-bold text-slate-300 hover:text-primary transition-colors"
+              >
+                {brand}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter - Kumo Style */}
+      <section className="py-12 lg:py-16 bg-slate-900 text-white">
+        <div className="container">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-2xl lg:text-3xl font-bold mb-3">Subscribe to Our Newsletter</h2>
+            <p className="text-slate-400 mb-6">Get the latest updates on new products and exclusive offers</p>
+            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input
                 type="email"
-                placeholder="Enter your email"
-                className="flex-1 md:w-80 px-4 py-2 rounded-sm text-black"
+                placeholder="Enter your email address"
+                className="flex-1 px-5 py-3 rounded-full text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary"
               />
-              <Button className="bg-primary hover:bg-primary/90">
+              <Button className="bg-primary hover:bg-primary/90 rounded-full px-8">
                 Subscribe
               </Button>
             </div>
