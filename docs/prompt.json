@@ -1,0 +1,303 @@
+{
+  "project": {
+    "name": "Intact Ghana AI Commerce",
+    "objective": "Rebuild intactghana.com as a modern AI-first e-commerce platform using Next.js App Router with Ghana-optimized checkout and operational AI automation.",
+    "nonNegotiables": [
+      "Produce complete, self-contained files. No partial snippets.",
+      "Maintain a clear folder structure and write every file referenced.",
+      "Include README.md and CHANGELOG.md and keep them updated for each iteration.",
+      "Implement module-by-module: finish and test each module before moving to the next.",
+      "Performance-first: server components, caching, optimized images, and fast search.",
+      "Security-first: RBAC, audit logs, input validation, rate limits, secure sessions."
+    ]
+  },
+  "stack": {
+    "frontend": {
+      "framework": "Next.js",
+      "router": "App Router",
+      "language": "TypeScript",
+      "ui": "TailwindCSS + shadcn/ui",
+      "state": "React Server Components + minimal client state (Zustand only if needed)",
+      "forms": "react-hook-form + zod",
+      "animation": "Framer Motion (Phase 1), optional GSAP/Lenis in Phase 2"
+    },
+    "backend": {
+      "api": "Next.js Route Handlers",
+      "db": "PostgreSQL",
+      "orm": "Prisma",
+      "cache": "Redis (optional; required if personalization/recommendations expand)",
+      "search": "Meilisearch or Typesense (implement one; abstract behind a service interface)"
+    },
+    "integrations": {
+      "payments": "Implement adapter pattern for Hubtel OR Flutterwave (select via env); include webhooks and idempotency",
+      "sms": "mNotify adapter",
+      "email": "SMTP adapter (Nodemailer)"
+    },
+    "ai": {
+      "approach": "Retrieval-first + tool/action calling. AI must not hallucinate product prices/stock/policies.",
+      "rag": "Vector store optional; start with structured retrieval from catalog + policy content",
+      "assistant": "AI Shopping Assistant with safe actions (compare, recommend, add-to-cart, check stock, explain policy)."
+    }
+  },
+  "deliverables": {
+    "docs": [
+      "README.md (setup, env vars, scripts, deployment)",
+      "CHANGELOG.md (versioned changes per module)",
+      "PRD.md (already provided; include in repo)",
+      "SECURITY.md (threat model + controls)"
+    ],
+    "code": [
+      "Complete Next.js app with storefront, admin dashboard, checkout, payments, notifications, CMS pages, reviews, and AI assistant v1."
+    ],
+    "qa": [
+      "Basic unit tests for core services (pricing, stock, payment callback verification).",
+      "E2E smoke tests for: browse -> add to cart -> checkout -> payment simulated -> order confirmed."
+    ]
+  },
+  "modules": [
+    {
+      "name": "M0 - Baseline & Infrastructure",
+      "statusDefinitionOfDone": [
+        "Next.js project bootstrapped with Tailwind + shadcn/ui",
+        "Prisma schema + migrations created",
+        "Auth implemented for customers and admins",
+        "RBAC + Audit logs implemented",
+        "Global error handling and logging in place",
+        "Seed script creates sample categories/products/variants"
+      ],
+      "keyFiles": [
+        "app/(store)/layout.tsx",
+        "app/(admin)/layout.tsx",
+        "prisma/schema.prisma",
+        "lib/auth/*",
+        "lib/rbac/*",
+        "lib/audit/*",
+        "scripts/seed.ts",
+        "README.md",
+        "CHANGELOG.md"
+      ]
+    },
+    {
+      "name": "M1 - Storefront Core",
+      "definitionOfDone": [
+        "Home, PLP, PDP, Cart built",
+        "Filters and sorting working",
+        "Product variants supported",
+        "SEO metadata and structured data implemented",
+        "Performance budget met (LCP < 2.5s target)"
+      ],
+      "requirements": {
+        "plp": ["faceted filters by category attribute set", "pagination", "sort by price, popularity, newest"],
+        "pdp": ["spec table", "warranty block", "delivery estimate block", "exchange policy summary block", "recommended accessories"]
+      }
+    },
+    {
+      "name": "M2 - Search Engine",
+      "definitionOfDone": [
+        "Search service abstracted behind interface",
+        "Typeahead suggestions",
+        "Zero-result analytics capture",
+        "Indexing job for products"
+      ]
+    },
+    {
+      "name": "M3 - Checkout & Payments",
+      "definitionOfDone": [
+        "Guest checkout + account checkout",
+        "Payment adapter implemented (Hubtel or Flutterwave via env)",
+        "Webhook callback verified, idempotent, logged",
+        "Invoice PDF generated and stored",
+        "SMS/email notifications sent"
+      ],
+      "security": [
+        "All payment callbacks verified by signature/token",
+        "Idempotency keys for payment events",
+        "Fraud basic checks: repeated failures, velocity limit"
+      ]
+    },
+    {
+      "name": "M4 - Orders & Fulfillment Admin",
+      "definitionOfDone": [
+        "Admin order list + details",
+        "Status transitions enforced",
+        "Pick/pack list generated",
+        "Serial/IMEI capture for electronics",
+        "Stock deduction and reversal rules"
+      ]
+    },
+    {
+      "name": "M5 - Reviews & Trust",
+      "definitionOfDone": [
+        "Verified reviews (buyer-only)",
+        "Moderation queue",
+        "Trust badges and policy engine integrated into PDP",
+        "Policy pages managed via CMS"
+      ]
+    },
+    {
+      "name": "M6 - CMS + PIM",
+      "definitionOfDone": [
+        "CMS pages CRUD (policies, FAQs, blog)",
+        "Product attribute sets per category",
+        "CSV import/export for products",
+        "Validation rules for content completeness"
+      ]
+    },
+    {
+      "name": "M7 - AI Shopping Assistant v1",
+      "definitionOfDone": [
+        "Assistant can answer catalog questions grounded in DB content",
+        "Assistant can recommend and compare products",
+        "Assistant can add items to cart via safe server actions",
+        "Assistant can explain delivery/warranty/return policies using policy content",
+        "Escalate to human flow (exports chat summary)"
+      ],
+      "guardrails": [
+        "No hallucinated prices/stock",
+        "All product facts must come from retrieval results",
+        "If uncertain, assistant asks user to refine constraints"
+      ]
+    }
+  ],
+  "uiUx": {
+    "designSystem": {
+      "typography": "Consistent scale, readable contrast, balanced spacing",
+      "layout": "Grid-first, clean cards, strong hierarchy",
+      "components": [
+        "Navbar with mega-menu categories",
+        "Sticky cart drawer",
+        "Product cards with quick actions",
+        "Comparison table",
+        "Trust badges",
+        "Checkout stepper",
+        "Admin data tables"
+      ]
+    },
+    "ghanaSpecific": [
+      "Address fields: region/city + landmark + optional GPS pin",
+      "Delivery fees by region",
+      "MoMo-first payment UX"
+    ]
+  },
+  "dataModel": {
+    "entities": [
+      "User",
+      "Role",
+      "Permission",
+      "AuditLog",
+      "Category",
+      "Product",
+      "Variant",
+      "Attribute",
+      "AttributeValue",
+      "InventoryLocation",
+      "StockLevel",
+      "Cart",
+      "CartItem",
+      "Order",
+      "OrderItem",
+      "Payment",
+      "RefundExchange",
+      "Shipment",
+      "Review",
+      "SupportTicket",
+      "CMSPage",
+      "Policy"
+    ]
+  },
+  "acceptanceCriteria": [
+    "A user can browse categories, search, view product details, compare items, add to cart, checkout, pay, and receive confirmation SMS/email.",
+    "Admin can manage products, orders, inventory, reviews, policies, and see analytics.",
+    "AI assistant can recommend products grounded in catalog and perform add-to-cart actions.",
+    "Site is fast, SEO-friendly, and secure by default."
+  ],
+  "environmentVariables": {
+    "required": [
+      "DATABASE_URL",
+      "AUTH_SECRET",
+      "PAYMENTS_PROVIDER",
+      "HUBTEL_CLIENT_ID",
+      "HUBTEL_CLIENT_SECRET",
+      "FLUTTERWAVE_PUBLIC_KEY",
+      "FLUTTERWAVE_SECRET_KEY",
+      "MNOTIFY_API_KEY",
+      "SMTP_HOST",
+      "SMTP_PORT",
+      "SMTP_USER",
+      "SMTP_PASS",
+      "APP_URL"
+    ],
+    "notes": [
+      "PAYMENTS_PROVIDER = HUBTEL | FLUTTERWAVE",
+      "Only one provider must be active at a time; implement adapter pattern."
+    ]
+  },
+  "executionInstructions": [
+    "Start with M0 and do not proceed until its tests and seed data work.",
+    "For each module: implement, run tests, update README and CHANGELOG, then move on.",
+    "No placeholder logic for payments; implement webhook verification and idempotency correctly.",
+    "Ensure policies displayed on PDP are consistent with policy pages in CMS."
+  ]
+  {
+  "stack": {
+    "frontend": {
+      "animation": {
+        "phase1": ["Framer Motion", "Radix UI (via shadcn)"],
+        "phase2": ["Lenis (marketing pages only)", "GSAP (hero + complex sequences only)"],
+        "constraints": [
+          "Do not use Barba.js with Next.js App Router. Implement route transitions with Framer Motion + Layouts.",
+          "Three.js is optional and must be feature-flagged; never block TTI on mobile.",
+          "All animations must respect prefers-reduced-motion."
+        ]
+      }
+    }
+  },
+  "uiUx": {
+    "motionDesignSystem": {
+      "easing": {
+        "standard": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+        "emphasize": "cubic-bezier(0.16, 1, 0.3, 1)"
+      },
+      "durationsMs": {
+        "micro": [120, 180],
+        "small": [180, 240],
+        "medium": [280, 360],
+        "large": [450, 650]
+      },
+      "distances": {
+        "translateYpx": [6, 16],
+        "scale": [0.98, 1.02]
+      },
+      "patterns": [
+        "Route transitions (fade + slight translate) using App Router layouts",
+        "Shared element transitions (product card -> PDP) using Framer Motion layoutId",
+        "Skeleton loading states for PLP/PDP/cart/checkout",
+        "Animated filter drawer + filter chips apply/remove",
+        "Cart drawer animations with add-to-cart success states",
+        "Checkout stepper with animated validation errors and section transitions",
+        "Toast and inline confirmations with non-blocking motion",
+        "Admin table row transitions for state updates"
+      ],
+      "performanceRules": [
+        "Animate transform and opacity only where possible",
+        "Avoid animating height; use scale/clip-path patterns if needed",
+        "Debounce scroll-linked animations; no jank on low-end devices",
+        "Do not animate large shadows continuously; use subtle state changes"
+      ],
+      "accessibility": [
+        "prefers-reduced-motion must disable non-essential motion",
+        "Focus states are visible and consistent across components"
+      ]
+    },
+    "interactiveUxFeatures": [
+      "Command palette search (Cmd+K) with instant actions",
+      "Compare tray with animated add/remove",
+      "Sticky PDP section nav with smooth transitions",
+      "Location-based delivery ETA panel with animated state updates",
+      "Micro-interactions on buttons, cards, and input focus",
+      "Hover previews for product media where appropriate"
+    ]
+  }
+}
+
+}
