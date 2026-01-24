@@ -74,9 +74,9 @@ export async function processUserMessage(
     actions.push({
       type: "search",
       input: { query: userMessage },
-      output: { count: searchResults.length },
+      output: { count: searchResults?.length || 0 },
     });
-    products = searchResults;
+    products = searchResults || [];
   }
 
   // Compare intent
@@ -282,8 +282,8 @@ async function logConversation(
         data: {
           conversationId: conversation.id,
           type: action.type.toUpperCase() as "SEARCH_PRODUCTS" | "GET_PRODUCT_DETAILS" | "COMPARE_PRODUCTS" | "ADD_TO_CART" | "CHECK_STOCK" | "GET_POLICY" | "RECOMMEND_PRODUCTS" | "ESCALATE_TO_HUMAN",
-          input: action.input,
-          output: action.output,
+          input: JSON.parse(JSON.stringify(action.input)),
+          output: action.output ? JSON.parse(JSON.stringify(action.output)) : undefined,
           status: "SUCCESS",
         },
       });

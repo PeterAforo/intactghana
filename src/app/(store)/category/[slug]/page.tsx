@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { Suspense } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -42,9 +44,9 @@ async function getProducts(categoryId: string, searchParams: Record<string, stri
   const skip = (page - 1) * limit;
   const sort = (searchParams.sort as string) || "newest";
 
-  let orderBy: Record<string, string> = { createdAt: "desc" };
-  if (sort === "price-asc") orderBy = { variants: { _min: { price: "asc" } } };
-  if (sort === "price-desc") orderBy = { variants: { _max: { price: "desc" } } };
+  let orderBy: Record<string, unknown> = { createdAt: "desc" };
+  if (sort === "price-asc") orderBy = { createdAt: "asc" };
+  if (sort === "price-desc") orderBy = { createdAt: "desc" };
   if (sort === "name") orderBy = { name: "asc" };
 
   const [products, total] = await Promise.all([
