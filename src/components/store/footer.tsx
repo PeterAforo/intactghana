@@ -1,75 +1,91 @@
 import Link from "next/link";
 import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
 
 const footerLinks = {
-  shop: [
-    { name: "Laptops", href: "/category/laptops" },
-    { name: "Phones", href: "/category/phones" },
-    { name: "Tablets", href: "/category/tablets" },
-    { name: "Accessories", href: "/category/accessories" },
-    { name: "Printers", href: "/category/printers" },
-  ],
-  support: [
-    { name: "Help Center", href: "/help" },
-    { name: "Track Order", href: "/track-order" },
-    { name: "Warranty Claims", href: "/warranty" },
-    { name: "Returns & Exchanges", href: "/returns" },
-    { name: "Contact Us", href: "/contact" },
-  ],
-  company: [
-    { name: "About Us", href: "/about" },
-    { name: "Careers", href: "/careers" },
-    { name: "Blog", href: "/blog" },
-    { name: "Press", href: "/press" },
-  ],
-  legal: [
-    { name: "Privacy Policy", href: "/privacy" },
-    { name: "Terms of Service", href: "/terms" },
-    { name: "Delivery Policy", href: "/delivery-policy" },
-    { name: "Return Policy", href: "/return-policy" },
-  ],
+  contact: {
+    title: "Contact Intact Ghana",
+    items: [
+      "Intact Ghana Office, Accra",
+      "Mon - Sat: 9am - 6pm",
+      "+233 30 XXX XXXX",
+      "info@intactghana.com",
+    ],
+  },
+  categories: {
+    title: "Categories",
+    links: [
+      { name: "Laptops", href: "/category/laptops" },
+      { name: "Phones & Tablets", href: "/category/phones" },
+      { name: "Computing", href: "/category/computing" },
+      { name: "Accessories", href: "/category/accessories" },
+      { name: "Printers", href: "/category/printers" },
+      { name: "Networking", href: "/category/networking" },
+    ],
+  },
+  customerService: {
+    title: "Customer Services",
+    links: [
+      { name: "My Account", href: "/account" },
+      { name: "Track Order", href: "/track-order" },
+      { name: "Wishlist", href: "/wishlist" },
+      { name: "FAQs", href: "/faqs" },
+      { name: "Contact Us", href: "/contact" },
+    ],
+  },
+  information: {
+    title: "Information",
+    links: [
+      { name: "About Us", href: "/about" },
+      { name: "Privacy Policy", href: "/privacy" },
+      { name: "Terms & Conditions", href: "/terms" },
+      { name: "Delivery Policy", href: "/delivery-policy" },
+      { name: "Return Policy", href: "/return-policy" },
+    ],
+  },
 };
 
 export function StoreFooter() {
   return (
-    <footer className="border-t bg-muted/30">
-      <div className="container py-12">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5">
-          {/* Brand */}
-          <div className="col-span-2 md:col-span-4 lg:col-span-1">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold">
-                IG
-              </div>
-              <span className="font-bold text-xl">Intact Ghana</span>
-            </Link>
-            <p className="text-sm text-muted-foreground mb-4">
-              Ghana&apos;s trusted destination for quality electronics and technology products.
-            </p>
-            <div className="space-y-2 text-sm text-muted-foreground">
-              <p className="flex items-center gap-2">
-                <Phone className="h-4 w-4" />
-                +233 XX XXX XXXX
-              </p>
-              <p className="flex items-center gap-2">
-                <Mail className="h-4 w-4" />
-                support@intactghana.com
-              </p>
-              <p className="flex items-center gap-2">
-                <MapPin className="h-4 w-4" />
-                Accra, Ghana
-              </p>
-            </div>
+    <footer className="bg-gray-900 text-gray-300">
+      {/* Quick Links Bar */}
+      <div className="border-b border-gray-800">
+        <div className="container py-3">
+          <div className="flex flex-wrap items-center justify-center gap-4 text-xs">
+            <Link href="/about" className="hover:text-white">About Us</Link>
+            <span className="text-gray-600">|</span>
+            <Link href="/customer-service" className="hover:text-white">Customer Service</Link>
+            <span className="text-gray-600">|</span>
+            <Link href="/privacy" className="hover:text-white">Privacy Policy</Link>
+            <span className="text-gray-600">|</span>
+            <Link href="/terms" className="hover:text-white">Terms of Use</Link>
+            <span className="text-gray-600">|</span>
+            <Link href="/faqs" className="hover:text-white">FAQs</Link>
+            <span className="text-gray-600">|</span>
+            <Link href="/contact" className="hover:text-white">Contact Us</Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Footer */}
+      <div className="container py-10">
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+          {/* Contact */}
+          <div>
+            <h3 className="font-semibold text-white mb-4">{footerLinks.contact.title}</h3>
+            <ul className="space-y-2 text-sm">
+              {footerLinks.contact.items.map((item, i) => (
+                <li key={i} className="text-gray-400">{item}</li>
+              ))}
+            </ul>
           </div>
 
-          {/* Shop */}
+          {/* Categories */}
           <div>
-            <h3 className="font-semibold mb-4">Shop</h3>
+            <h3 className="font-semibold text-white mb-4">{footerLinks.categories.title}</h3>
             <ul className="space-y-2 text-sm">
-              {footerLinks.shop.map((link) => (
+              {footerLinks.categories.links.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-muted-foreground hover:text-foreground transition-colors">
+                  <Link href={link.href} className="text-gray-400 hover:text-white transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -77,13 +93,13 @@ export function StoreFooter() {
             </ul>
           </div>
 
-          {/* Support */}
+          {/* Customer Services */}
           <div>
-            <h3 className="font-semibold mb-4">Support</h3>
+            <h3 className="font-semibold text-white mb-4">{footerLinks.customerService.title}</h3>
             <ul className="space-y-2 text-sm">
-              {footerLinks.support.map((link) => (
+              {footerLinks.customerService.links.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-muted-foreground hover:text-foreground transition-colors">
+                  <Link href={link.href} className="text-gray-400 hover:text-white transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -91,27 +107,13 @@ export function StoreFooter() {
             </ul>
           </div>
 
-          {/* Company */}
+          {/* Information */}
           <div>
-            <h3 className="font-semibold mb-4">Company</h3>
+            <h3 className="font-semibold text-white mb-4">{footerLinks.information.title}</h3>
             <ul className="space-y-2 text-sm">
-              {footerLinks.company.map((link) => (
+              {footerLinks.information.links.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-muted-foreground hover:text-foreground transition-colors">
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div>
-            <h3 className="font-semibold mb-4">Legal</h3>
-            <ul className="space-y-2 text-sm">
-              {footerLinks.legal.map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href} className="text-muted-foreground hover:text-foreground transition-colors">
+                  <Link href={link.href} className="text-gray-400 hover:text-white transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -119,35 +121,39 @@ export function StoreFooter() {
             </ul>
           </div>
         </div>
+      </div>
 
-        <Separator className="my-8" />
+      {/* Bottom Bar */}
+      <div className="border-t border-gray-800">
+        <div className="container py-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-xs text-gray-500">
+              © {new Date().getFullYear()} Intact Ghana. All rights reserved.
+            </p>
+            
+            {/* Social Links */}
+            <div className="flex items-center gap-4">
+              <Link href="#" className="text-gray-500 hover:text-white transition-colors">
+                <Facebook className="h-4 w-4" />
+              </Link>
+              <Link href="#" className="text-gray-500 hover:text-white transition-colors">
+                <Twitter className="h-4 w-4" />
+              </Link>
+              <Link href="#" className="text-gray-500 hover:text-white transition-colors">
+                <Instagram className="h-4 w-4" />
+              </Link>
+              <Link href="#" className="text-gray-500 hover:text-white transition-colors">
+                <Youtube className="h-4 w-4" />
+              </Link>
+            </div>
 
-        {/* Bottom */}
-        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Intact Ghana. All rights reserved.
-          </p>
-          <div className="flex items-center gap-4">
-            <Link href="#" className="text-muted-foreground hover:text-foreground">
-              <Facebook className="h-5 w-5" />
-            </Link>
-            <Link href="#" className="text-muted-foreground hover:text-foreground">
-              <Twitter className="h-5 w-5" />
-            </Link>
-            <Link href="#" className="text-muted-foreground hover:text-foreground">
-              <Instagram className="h-5 w-5" />
-            </Link>
-            <Link href="#" className="text-muted-foreground hover:text-foreground">
-              <Youtube className="h-5 w-5" />
-            </Link>
-          </div>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <span>We accept:</span>
-            <span className="font-medium">MTN MoMo</span>
-            <span>•</span>
-            <span className="font-medium">Vodafone Cash</span>
-            <span>•</span>
-            <span className="font-medium">Cards</span>
+            {/* Payment Methods */}
+            <div className="flex items-center gap-3 text-xs text-gray-500">
+              <span>We accept:</span>
+              <span className="px-2 py-1 bg-gray-800 rounded text-gray-300">MTN MoMo</span>
+              <span className="px-2 py-1 bg-gray-800 rounded text-gray-300">Vodafone</span>
+              <span className="px-2 py-1 bg-gray-800 rounded text-gray-300">Cards</span>
+            </div>
           </div>
         </div>
       </div>

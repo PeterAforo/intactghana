@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Search, ShoppingCart, User, Menu, X, Heart, Phone } from "lucide-react";
+import { Search, ShoppingCart, User, Menu, X, Heart, Phone, ChevronDown, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -10,12 +10,13 @@ import { cn } from "@/lib/utils";
 
 const categories = [
   { name: "Laptops", href: "/category/laptops" },
-  { name: "Phones", href: "/category/phones" },
-  { name: "Tablets", href: "/category/tablets" },
+  { name: "Phones & Tablets", href: "/category/phones" },
+  { name: "Computing", href: "/category/computing" },
   { name: "Accessories", href: "/category/accessories" },
   { name: "Printers", href: "/category/printers" },
   { name: "Networking", href: "/category/networking" },
   { name: "Gaming", href: "/category/gaming" },
+  { name: "Audio", href: "/category/audio" },
 ];
 
 export function StoreHeader() {
@@ -23,104 +24,109 @@ export function StoreHeader() {
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      {/* Top bar */}
-      <div className="hidden border-b bg-primary text-primary-foreground md:block">
-        <div className="container flex h-8 items-center justify-between text-xs">
+    <header className="sticky top-0 z-50 w-full">
+      {/* Top announcement bar */}
+      <div className="bg-gray-100 text-gray-600 text-xs py-1.5">
+        <div className="container flex items-center justify-between">
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
               <Phone className="h-3 w-3" />
-              +233 XX XXX XXXX
+              +233 30 XXX XXXX
             </span>
-            <span>Free delivery on orders over GHS 500</span>
+            <span className="hidden sm:inline">|</span>
+            <span className="hidden sm:inline">Mon - Sat: 9am - 6pm</span>
           </div>
           <div className="flex items-center gap-4">
-            <Link href="/help" className="hover:underline">Help Center</Link>
-            <Link href="/track-order" className="hover:underline">Track Order</Link>
+            <Link href="/track-order" className="hover:text-black">Track Order</Link>
+            <span>|</span>
+            <Link href="/help" className="hover:text-black">Help</Link>
           </div>
         </div>
       </div>
 
-      {/* Main header */}
-      <div className="container">
-        <div className="flex h-16 items-center justify-between gap-4">
-          {/* Mobile menu button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
-
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold">
-              IG
-            </div>
-            <span className="hidden font-bold text-xl sm:inline-block">Intact Ghana</span>
-          </Link>
-
-          {/* Search */}
-          <div className="hidden flex-1 max-w-xl md:flex">
-            <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search products..."
-                className="w-full pl-10 pr-4"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-          </div>
-
-          {/* Actions */}
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" className="hidden md:flex">
-              <Heart className="h-5 w-5" />
-            </Button>
-            <Link href="/account">
-              <Button variant="ghost" size="icon">
-                <User className="h-5 w-5" />
-              </Button>
-            </Link>
-            <Link href="/cart" className="relative">
-              <Button variant="ghost" size="icon">
-                <ShoppingCart className="h-5 w-5" />
-                <Badge className="absolute -right-1 -top-1 h-5 w-5 rounded-full p-0 text-xs flex items-center justify-center">
-                  0
-                </Badge>
-              </Button>
-            </Link>
-          </div>
-        </div>
-
-        {/* Mobile search */}
-        <div className="pb-3 md:hidden">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search products..."
-              className="w-full pl-10"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Categories nav */}
-      <nav className="hidden border-t md:block">
+      {/* Main header - Black background like current site */}
+      <div className="bg-black text-white">
         <div className="container">
-          <ul className="flex items-center gap-6 h-10 text-sm">
+          <div className="flex h-14 items-center justify-between gap-4">
+            {/* Mobile menu button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden text-white hover:bg-gray-800"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </Button>
+
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2 shrink-0">
+              <span className="font-serif text-2xl font-bold tracking-tight">INTACT</span>
+              <span className="text-[10px] text-gray-400 hidden sm:block">GHANA</span>
+            </Link>
+
+            {/* Categories dropdown */}
+            <div className="hidden md:flex items-center">
+              <Button variant="ghost" className="text-white hover:bg-gray-800 gap-1">
+                <Menu className="h-4 w-4" />
+                All Categories
+                <ChevronDown className="h-3 w-3" />
+              </Button>
+            </div>
+
+            {/* Search */}
+            <div className="hidden flex-1 max-w-lg md:flex">
+              <div className="relative w-full">
+                <Input
+                  type="search"
+                  placeholder="Search for products..."
+                  className="w-full bg-white text-black border-0 rounded-sm h-9"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <Button size="sm" className="absolute right-0 top-0 h-9 rounded-l-none bg-primary hover:bg-primary/90">
+                  <Search className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+
+            {/* Nav links */}
+            <nav className="hidden lg:flex items-center gap-4 text-sm">
+              <Link href="/category/laptops" className="hover:text-gray-300">Laptops</Link>
+              <Link href="/category/phones" className="hover:text-gray-300">Phones</Link>
+              <Link href="/deals" className="hover:text-gray-300">Deals</Link>
+            </nav>
+
+            {/* Actions */}
+            <div className="flex items-center gap-1">
+              <Link href="/account">
+                <Button variant="ghost" size="sm" className="text-white hover:bg-gray-800 gap-1">
+                  <User className="h-4 w-4" />
+                  <span className="hidden lg:inline text-xs">Account</span>
+                </Button>
+              </Link>
+              <Link href="/cart" className="relative">
+                <Button variant="ghost" size="sm" className="text-white hover:bg-gray-800 gap-1">
+                  <ShoppingCart className="h-4 w-4" />
+                  <span className="hidden lg:inline text-xs">Cart</span>
+                  <Badge className="absolute -right-1 -top-1 h-4 w-4 rounded-full p-0 text-[10px] flex items-center justify-center bg-orange-500 border-0">
+                    0
+                  </Badge>
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Categories nav bar */}
+      <nav className="hidden md:block bg-white border-b shadow-sm">
+        <div className="container">
+          <ul className="flex items-center gap-6 h-10 text-sm overflow-x-auto">
             {categories.map((category) => (
-              <li key={category.name}>
+              <li key={category.name} className="shrink-0">
                 <Link
                   href={category.href}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-gray-700 hover:text-black font-medium transition-colors"
                 >
                   {category.name}
                 </Link>
@@ -129,6 +135,22 @@ export function StoreHeader() {
           </ul>
         </div>
       </nav>
+
+      {/* Mobile search */}
+      <div className="md:hidden bg-black px-4 pb-3">
+        <div className="relative">
+          <Input
+            type="search"
+            placeholder="Search for products..."
+            className="w-full bg-white text-black border-0 rounded-sm h-9 pr-10"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <Button size="sm" className="absolute right-0 top-0 h-9 rounded-l-none bg-primary">
+            <Search className="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
 
       {/* Mobile menu */}
       <div
