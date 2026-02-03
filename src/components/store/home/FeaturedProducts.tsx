@@ -112,7 +112,7 @@ export function FeaturedProducts({
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="scrollbar-hide -mx-4 flex gap-4 overflow-x-auto px-4 pb-4 md:gap-6"
+          className="scrollbar-hide flex gap-4 overflow-x-auto pb-4 md:gap-6"
           style={{ scrollSnapType: "x mandatory" }}
         >
           {products.map((product) => (

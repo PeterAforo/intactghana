@@ -8,9 +8,9 @@ export default function StoreLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col overflow-x-hidden">
       <StoreHeader />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 w-full">{children}</main>
       <StoreFooter />
       <AIChat />
     </div>

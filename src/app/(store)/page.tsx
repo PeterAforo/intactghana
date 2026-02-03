@@ -241,7 +241,7 @@ const topSellingProducts = [
 
 export default function HomePage() {
   return (
-    <main className="flex flex-col">
+    <main className="flex flex-col w-full overflow-x-hidden">
       {/* Hero Section with Slider */}
       <HeroSlider />
 

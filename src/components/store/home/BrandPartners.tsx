@@ -23,8 +23,8 @@ const brands: Brand[] = [
 
 export function BrandPartners() {
   return (
-    <section className="border-y border-slate-200 bg-slate-50 py-12" aria-labelledby="brands-heading">
-      <div className="container">
+    <section className="border-y border-slate-200 bg-slate-50 py-12 overflow-hidden" aria-labelledby="brands-heading">
+      <div className="container overflow-hidden">
         <h2
           id="brands-heading"
           className="mb-8 text-center text-lg font-semibold text-slate-600"
@@ -35,13 +35,13 @@ export function BrandPartners() {
           <motion.div
             className="flex gap-12"
             animate={{
-              x: [0, -1200],
+              x: [0, -800],
             }}
             transition={{
               x: {
                 repeat: Infinity,
                 repeatType: "loop",
-                duration: 30,
+                duration: 20,
                 ease: "linear",
               },
             }}

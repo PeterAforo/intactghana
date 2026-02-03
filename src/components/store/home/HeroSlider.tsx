@@ -49,7 +49,7 @@ const slides: HeroSlide[] = [
 
 const slideVariants = {
   enter: (direction: number) => ({
-    x: direction > 0 ? 1000 : -1000,
+    x: direction > 0 ? "100%" : "-100%",
     opacity: 0,
   }),
   center: {
@@ -59,7 +59,7 @@ const slideVariants = {
   },
   exit: (direction: number) => ({
     zIndex: 0,
-    x: direction < 0 ? 1000 : -1000,
+    x: direction < 0 ? "100%" : "-100%",
     opacity: 0,
   }),
 };

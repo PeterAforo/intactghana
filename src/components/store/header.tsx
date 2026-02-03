@@ -57,7 +57,7 @@ export function StoreHeader() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white shadow-sm">
+    <header className="sticky top-0 z-50 w-full bg-white shadow-sm overflow-x-hidden">
       {/* Top Bar - Kumo Style */}
       <div className="hidden md:block bg-slate-900 text-slate-300 text-xs">
         <div className="container">
