@@ -1,0 +1,874 @@
+{
+  "projectName": "Intact Ghana E-Commerce Platform",
+  "version": "1.0.0",
+  "lastUpdated": "2026-01-25",
+  "description": "Comprehensive development rules for Windsurf AI to build and maintain the Intact Ghana e-commerce platform",
+  
+  "corePrinciples": {
+    "codeQuality": [
+      "Write clean, self-documenting code",
+      "Follow DRY (Don't Repeat Yourself) principle",
+      "Maintain single responsibility for functions and components",
+      "Prefer composition over inheritance",
+      "Keep functions small and focused (max 50 lines)",
+      "Use meaningful variable and function names",
+      "Add comments only when code intent isn't obvious"
+    ],
+    "performance": [
+      "Optimize for Core Web Vitals (LCP < 2.5s, FID < 100ms, CLS < 0.1)",
+      "Lazy load images and components below the fold",
+      "Use code splitting for route-based chunks",
+      "Implement proper caching strategies",
+      "Minimize bundle size (initial < 200KB)",
+      "Use memoization for expensive computations",
+      "Debounce user inputs and API calls"
+    ],
+    "accessibility": [
+      "Maintain WCAG 2.1 AA compliance minimum",
+      "Ensure keyboard navigation for all interactive elements",
+      "Provide ARIA labels for screen readers",
+      "Maintain 4.5:1 contrast ratio for text",
+      "Include focus indicators on all interactive elements",
+      "Support prefers-reduced-motion",
+      "Provide alternative text for all images"
+    ],
+    "security": [
+      "Never commit secrets or API keys",
+      "Validate and sanitize all user inputs",
+      "Use parameterized queries to prevent SQL injection",
+      "Implement CSRF protection",
+      "Use HTTPS everywhere",
+      "Follow principle of least privilege",
+      "Regularly update dependencies"
+    ]
+  },
+
+  "designSystem": {
+    "referenceFile": "design-system.md",
+    "colors": {
+      "primary": "intact-[50-900]",
+      "accent": "energy-[100-600]",
+      "semantic": ["success-[100-600]", "warning-[100-600]", "error-[100-600]"],
+      "neutral": "gray-[50-900]",
+      "darkMode": "dark-[700-950]",
+      "rules": [
+        "Always use design tokens, never hex codes directly",
+        "Maximum 4 colors per component",
+        "Ensure 4.5:1 contrast for text",
+        "Use semantic colors for status (success/warning/error)"
+      ]
+    },
+    "typography": {
+      "fontFamilies": {
+        "primary": "Inter",
+        "headings": "Clash Display",
+        "mono": "JetBrains Mono"
+      },
+      "scale": {
+        "display": ["xl: 72px", "l: 60px", "m: 48px"],
+        "heading": ["xl: 36px", "l: 30px", "m: 24px", "s: 20px", "xs: 18px"],
+        "body": ["xl: 20px", "l: 18px", "m: 16px", "s: 14px", "xs: 12px"]
+      },
+      "rules": [
+        "Use rem units for font sizes",
+        "Line-height: 1.2 for headings, 1.5+ for body",
+        "Max line length: 65-75 characters",
+        "Letter-spacing: -0.02em for large headings"
+      ]
+    },
+    "spacing": {
+      "baseUnit": "4px",
+      "scale": [0, 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128, 160, 192, 256],
+      "rules": [
+        "Always use spacing scale tokens",
+        "Maintain 4px vertical rhythm",
+        "Component internal: scale 1-6",
+        "Between components: scale 6-12",
+        "Sections: scale 16-32"
+      ]
+    },
+    "components": {
+      "referenceLocation": "packages/ui/src/components/",
+      "mandatory": [
+        "All components must have TypeScript types",
+        "Include JSDoc comments for complex components",
+        "Export named exports, not default",
+        "Co-locate tests with components",
+        "Follow atomic design methodology"
+      ]
+    }
+  },
+
+  "uiRules": {
+    "referenceFile": "ui.rules.json",
+    "components": {
+      "buttons": {
+        "variants": ["primary", "secondary", "outline", "ghost"],
+        "sizes": ["xs", "sm", "md", "lg", "xl"],
+        "states": ["default", "hover", "active", "focus", "disabled"],
+        "rules": [
+          "Maximum 1 primary button per view section",
+          "Always include focus states with 3px outline",
+          "Minimum height: 44px for md size (touch-friendly)",
+          "Use sentence case for button text",
+          "Disabled buttons: opacity 0.6, cursor not-allowed"
+        ]
+      },
+      "forms": {
+        "inputs": {
+          "heights": ["sm: 36px", "md: 44px", "lg: 52px"],
+          "rules": [
+            "Labels required above inputs",
+            "Show validation inline on blur",
+            "Use aria-describedby for help text",
+            "Error states: red border + error message below",
+            "Focus states: border color + ring"
+          ]
+        }
+      },
+      "cards": {
+        "rules": [
+          "Default elevation: shadow-sm",
+          "Hover elevation: shadow-lg with translateY(-4px)",
+          "Border radius: 12px for standard cards",
+          "Padding: 24px for content cards",
+          "Transition: all 0.3s ease"
+        ]
+      }
+    },
+    "layout": {
+      "container": {
+        "maxWidth": "1440px",
+        "padding": ["mobile: 16px", "tablet: 24px", "desktop: 48px"]
+      },
+      "grid": {
+        "columns": 12,
+        "gap": ["mobile: 16px", "tablet: 24px", "desktop: 24px"]
+      }
+    },
+    "responsive": {
+      "breakpoints": {
+        "xs": "0px",
+        "sm": "640px",
+        "md": "768px",
+        "lg": "1024px",
+        "xl": "1280px",
+        "2xl": "1536px"
+      },
+      "approach": "Mobile first",
+      "rules": [
+        "Design for mobile, enhance for larger screens",
+        "Touch targets minimum 44x44px on mobile",
+        "Test on actual devices, not just browser resize",
+        "Simplify navigation for mobile"
+      ]
+    }
+  },
+
+  "motionRules": {
+    "referenceFile": "motion.rules.json",
+    "durations": {
+      "instant": "50ms",
+      "fast": "150ms",
+      "base": "250ms",
+      "moderate": "350ms",
+      "slow": "500ms"
+    },
+    "easings": {
+      "default": "ease-out",
+      "enter": "ease-out",
+      "exit": "ease-in",
+      "move": "ease-in-out"
+    },
+    "rules": [
+      "Only animate transform and opacity for performance",
+      "Never animate width, height, top, left directly",
+      "Respect prefers-reduced-motion",
+      "Maximum animation duration: 500ms for functional, 2s for decorative",
+      "Use hardware acceleration (transform: translateZ(0)) sparingly",
+      "Always provide fallback for users with motion sensitivity"
+    ],
+    "commonPatterns": {
+      "fadeIn": "opacity: 0 -> 1, duration: 250ms, easing: ease-out",
+      "slideInUp": "translateY(20px) + opacity(0) -> translateY(0) + opacity(1), duration: 300ms",
+      "scaleIn": "scale(0.95) + opacity(0) -> scale(1) + opacity(1), duration: 200ms",
+      "pulse": "scale(1) -> scale(1.05) -> scale(1), duration: 600ms"
+    }
+  },
+
+  "uxFlows": {
+    "referenceFile": "ux.flows.md",
+    "criticalFlows": [
+      "Product discovery and search",
+      "Product details evaluation",
+      "Add to cart",
+      "Checkout process",
+      "User authentication",
+      "Order tracking",
+      "AI chat interaction"
+    ],
+    "principles": [
+      "Minimize steps to complete actions",
+      "Provide clear feedback for all user actions",
+      "Show loading states during async operations",
+      "Handle errors gracefully with helpful messages",
+      "Save user progress (forms, cart, etc.)",
+      "Implement optimistic UI updates where appropriate"
+    ],
+    "errorHandling": {
+      "validation": "Show inline, real-time validation",
+      "api": "User-friendly error messages, suggest actions",
+      "network": "Retry mechanism with exponential backoff",
+      "404": "Helpful 404 page with navigation options"
+    }
+  },
+
+  "architecture": {
+    "referenceFile": "architecture.md",
+    "frontend": {
+      "framework": "Next.js 14+ (App Router)",
+      "language": "TypeScript",
+      "stateManagement": "Zustand + React Query",
+      "styling": "Tailwind CSS + CSS Modules",
+      "testing": ["Jest", "React Testing Library", "Playwright"],
+      "rules": [
+        "Use server components by default, client only when needed",
+        "Implement proper error boundaries",
+        "Use React Query for server state",
+        "Use Zustand for client state",
+        "Code split by route",
+        "Implement proper SEO with metadata"
+      ]
+    },
+    "backend": {
+      "runtime": "Node.js 20+",
+      "framework": "Express.js / Fastify",
+      "database": "PostgreSQL (primary)",
+      "cache": "Redis",
+      "search": "Elasticsearch",
+      "architecture": "Microservices",
+      "rules": [
+        "Each microservice owns its data",
+        "Use Prisma ORM for type-safe database access",
+        "Implement proper logging with structured logs",
+        "Use message queues for async operations",
+        "Implement circuit breakers for external services",
+        "Always validate input with Zod schemas"
+      ]
+    },
+    "api": {
+      "style": "RESTful",
+      "versioning": "URL path (/v1, /v2)",
+      "authentication": "JWT",
+      "documentation": "OpenAPI/Swagger"
+    }
+  },
+
+  "apiConventions": {
+    "referenceFile": "api.conventions.md",
+    "urlStructure": {
+      "base": "https://api.intactghana.com/v1",
+      "format": "/resources/:id/sub-resources",
+      "rules": [
+        "Use plural nouns for collections",
+        "Use lowercase with hyphens",
+        "Keep URLs shallow (max 3 levels)",
+        "No verbs in URLs (use HTTP methods)"
+      ]
+    },
+    "httpMethods": {
+      "GET": "Retrieve resource(s)",
+      "POST": "Create new resource",
+      "PUT": "Update/Replace resource",
+      "PATCH": "Partial update",
+      "DELETE": "Remove resource"
+    },
+    "responseFormat": {
+      "success": {
+        "structure": {
+          "success": true,
+          "data": "{}",
+          "meta": "{ timestamp, requestId }"
+        }
+      },
+      "error": {
+        "structure": {
+          "success": false,
+          "error": "{ code, message, statusCode, details }",
+          "meta": "{ timestamp, requestId }"
+        }
+      },
+      "pagination": {
+        "structure": {
+          "success": true,
+          "data": "[]",
+          "pagination": "{ page, limit, total, totalPages, hasNext, hasPrev }",
+          "meta": "{}"
+        }
+      }
+    },
+    "statusCodes": {
+      "200": "OK - Successful GET, PUT, PATCH",
+      "201": "Created - Successful POST",
+      "204": "No Content - Successful DELETE",
+      "400": "Bad Request - Invalid input",
+      "401": "Unauthorized - Missing/invalid auth",
+      "403": "Forbidden - Insufficient permissions",
+      "404": "Not Found - Resource doesn't exist",
+      "422": "Unprocessable - Validation errors",
+      "429": "Too Many Requests - Rate limit",
+      "500": "Internal Server Error"
+    },
+    "errorCodes": {
+      "auth": ["AUTH_INVALID_TOKEN", "AUTH_MISSING_TOKEN", "AUTH_INVALID_CREDENTIALS"],
+      "validation": ["VALIDATION_FAILED", "VALIDATION_REQUIRED_FIELD", "VALIDATION_INVALID_FORMAT"],
+      "resource": ["RESOURCE_NOT_FOUND", "RESOURCE_ALREADY_EXISTS", "RESOURCE_CONFLICT"],
+      "business": ["BUSINESS_INSUFFICIENT_STOCK", "BUSINESS_INVALID_COUPON", "BUSINESS_PAYMENT_FAILED"],
+      "system": ["SYSTEM_INTERNAL_ERROR", "SYSTEM_DATABASE_ERROR", "SYSTEM_EXTERNAL_API_ERROR"]
+    }
+  },
+
+  "namingConventions": {
+    "referenceFile": "naming.rules.md",
+    "typescript": {
+      "variables": "camelCase",
+      "constants": "SCREAMING_SNAKE_CASE",
+      "functions": "camelCase with verb prefix",
+      "classes": "PascalCase",
+      "interfaces": "PascalCase (no I prefix)",
+      "types": "PascalCase",
+      "enums": "PascalCase",
+      "booleans": "Prefix with is, has, should, can",
+      "arrays": "Plural nouns",
+      "eventHandlers": "handle or on prefix"
+    },
+    "react": {
+      "components": "PascalCase",
+      "hooks": "camelCase with use prefix",
+      "props": "camelCase",
+      "files": "PascalCase for components, kebab-case for others"
+    },
+    "css": {
+      "classes": "kebab-case",
+      "ids": "kebab-case",
+      "customProperties": "--kebab-case"
+    },
+    "database": {
+      "tables": "snake_case (plural)",
+      "columns": "snake_case",
+      "foreignKeys": "{table}_id pattern",
+      "indexes": "idx_{table}_{columns}",
+      "constraints": "descriptive names with prefix"
+    },
+    "files": {
+      "components": "PascalCase.tsx or kebab-case.tsx",
+      "utilities": "kebab-case.ts",
+      "tests": "*.test.tsx or *.spec.tsx",
+      "styles": "*.module.css for CSS Modules"
+    },
+    "folders": {
+      "format": "kebab-case",
+      "collections": "Plural (components/, utils/)",
+      "specific": "Singular (user/, product/)"
+    },
+    "api": {
+      "endpoints": "kebab-case (plural)",
+      "queryParams": "camelCase",
+      "jsonKeys": "camelCase"
+    },
+    "git": {
+      "branches": "type/kebab-case-description",
+      "commits": "type(scope): description"
+    }
+  },
+
+  "folderStructure": {
+    "referenceFile": "folder-structure.md",
+    "monorepo": {
+      "structure": [
+        "apps/ - Applications (web, admin, mobile)",
+        "packages/ - Shared packages (ui, types, utils)",
+        "services/ - Backend microservices",
+        "infrastructure/ - IaC and deployment configs",
+        "docs/ - Documentation"
+      ]
+    },
+    "frontend": {
+      "appRouter": "app/ - Next.js App Router structure",
+      "components": [
+        "components/ui/ - Base components",
+        "components/features/ - Feature-specific components",
+        "components/layout/ - Layout components",
+        "components/shared/ - Shared utilities"
+      ],
+      "lib": [
+        "lib/api/ - API client",
+        "lib/hooks/ - Custom hooks",
+        "lib/utils/ - Utility functions",
+        "lib/constants/ - Constants",
+        "lib/schemas/ - Validation schemas"
+      ],
+      "store": "State management stores",
+      "types": "TypeScript type definitions",
+      "styles": "Global styles"
+    },
+    "backend": {
+      "structure": [
+        "src/api/ - Routes, controllers, middleware",
+        "src/services/ - Business logic",
+        "src/repositories/ - Data access layer",
+        "src/models/ - Database models",
+        "src/types/ - Type definitions",
+        "src/utils/ - Utilities",
+        "src/config/ - Configuration",
+        "src/database/ - Migrations and seeds",
+        "tests/ - Test files"
+      ]
+    }
+  },
+
+  "codeGenerationRules": {
+    "components": {
+      "template": [
+        "Create component file with TypeScript",
+        "Define props interface",
+        "Implement component with proper types",
+        "Export named export",
+        "Create index.ts for barrel export",
+        "Add JSDoc comments for complex logic",
+        "Include error boundaries where appropriate"
+      ],
+      "example": "When creating ProductCard component, include: ProductCard.tsx, ProductCard.module.css (if needed), ProductCard.test.tsx, index.ts"
+    },
+    "apiEndpoints": {
+      "template": [
+        "Define route in routes file",
+        "Create controller with business logic",
+        "Implement service layer",
+        "Add repository for data access",
+        "Define Zod schema for validation",
+        "Include error handling",
+        "Add proper TypeScript types",
+        "Document with JSDoc or OpenAPI"
+      ]
+    },
+    "hooks": {
+      "rules": [
+        "Start with 'use' prefix",
+        "Return object or array (consistent)",
+        "Include TypeScript types",
+        "Handle loading and error states",
+        "Cleanup effects properly",
+        "Document parameters and return values"
+      ]
+    },
+    "utilities": {
+      "rules": [
+        "Pure functions when possible",
+        "Single responsibility",
+        "Proper TypeScript types",
+        "JSDoc comments",
+        "Unit tests",
+        "Handle edge cases"
+      ]
+    }
+  },
+
+  "testingRules": {
+    "unit": {
+      "framework": "Jest",
+      "coverage": "Minimum 80%",
+      "rules": [
+        "Test pure functions thoroughly",
+        "Test component rendering",
+        "Test user interactions",
+        "Test edge cases and error states",
+        "Use descriptive test names",
+        "Follow AAA pattern: Arrange, Act, Assert"
+      ]
+    },
+    "integration": {
+      "framework": "Jest + Testing Library",
+      "rules": [
+        "Test component integration",
+        "Test API integration",
+        "Test user flows",
+        "Mock external dependencies",
+        "Test error handling"
+      ]
+    },
+    "e2e": {
+      "framework": "Playwright",
+      "rules": [
+        "Test critical user journeys",
+        "Test on multiple browsers",
+        "Test responsive behavior",
+        "Include accessibility tests",
+        "Test performance metrics"
+      ]
+    }
+  },
+
+  "performanceRules": {
+    "frontend": {
+      "metrics": [
+        "LCP < 2.5s",
+        "FID < 100ms",
+        "CLS < 0.1",
+        "TTI < 3.8s",
+        "Bundle size < 200KB initial"
+      ],
+      "optimizations": [
+        "Code splitting by route",
+        "Lazy load images below fold",
+        "Use Next.js Image component",
+        "Implement proper caching",
+        "Minimize JavaScript execution",
+        "Use service workers for offline support",
+        "Preload critical resources"
+      ]
+    },
+    "backend": {
+      "metrics": [
+        "API response time p95 < 500ms",
+        "Database query time p95 < 100ms"
+      ],
+      "optimizations": [
+        "Database indexing",
+        "Query optimization",
+        "Connection pooling",
+        "Redis caching",
+        "Horizontal scaling",
+        "Async processing for heavy tasks"
+      ]
+    }
+  },
+
+  "securityRules": {
+    "authentication": {
+      "method": "JWT with refresh tokens",
+      "rules": [
+        "Access token: 15 minutes expiry",
+        "Refresh token: 7 days expiry",
+        "Store tokens in httpOnly cookies",
+        "Implement token rotation",
+        "Use bcrypt for password hashing (cost: 12)"
+      ]
+    },
+    "authorization": {
+      "rules": [
+        "Implement role-based access control",
+        "Validate permissions on server",
+        "Never trust client-side checks",
+        "Use principle of least privilege"
+      ]
+    },
+    "inputValidation": {
+      "rules": [
+        "Validate all inputs with Zod schemas",
+        "Sanitize user inputs",
+        "Use parameterized queries",
+        "Implement rate limiting",
+        "Add CSRF protection",
+        "Validate file uploads"
+      ]
+    },
+    "dataProtection": {
+      "rules": [
+        "Encrypt sensitive data at rest",
+        "Use HTTPS everywhere",
+        "Implement proper CORS",
+        "Add security headers",
+        "Regular security audits",
+        "Keep dependencies updated"
+      ]
+    }
+  },
+
+  "aiIntegration": {
+    "chatbot": {
+      "provider": "OpenAI API",
+      "model": "GPT-4",
+      "rules": [
+        "Implement context-aware responses",
+        "Store conversation history",
+        "Escalate to human when needed",
+        "Rate limit API calls",
+        "Cache common queries",
+        "Monitor token usage"
+      ]
+    },
+    "recommendations": {
+      "types": [
+        "Collaborative filtering",
+        "Content-based filtering",
+        "Hybrid approach"
+      ],
+      "rules": [
+        "Update recommendations in real-time",
+        "A/B test recommendation algorithms",
+        "Explain recommendations to users",
+        "Allow user feedback",
+        "Privacy-conscious data usage"
+      ]
+    },
+    "search": {
+      "features": [
+        "Natural language processing",
+        "Visual search",
+        "Voice search",
+        "Auto-suggestions"
+      ],
+      "rules": [
+        "Index products in Elasticsearch",
+        "Implement fuzzy matching",
+        "Support synonyms",
+        "Track search analytics",
+        "Optimize for performance"
+      ]
+    }
+  },
+
+  "deploymentRules": {
+    "environments": {
+      "development": "Local development with hot reload",
+      "staging": "Identical to production for testing",
+      "production": "Live environment with monitoring"
+    },
+    "cicd": {
+      "pipeline": [
+        "Lint code",
+        "Type check",
+        "Run tests",
+        "Build application",
+        "Deploy to environment",
+        "Run smoke tests"
+      ],
+      "rules": [
+        "Automated deployments from main branch",
+        "Preview deployments for PRs",
+        "Rollback capability",
+        "Zero-downtime deployments",
+        "Feature flags for gradual rollouts"
+      ]
+    },
+    "monitoring": {
+      "tools": ["Application Performance Monitoring", "Error tracking", "Log aggregation"],
+      "alerts": [
+        "Error rate > 1%",
+        "Response time > 1s",
+        "Server CPU > 80%",
+        "Database connections > 90%"
+      ]
+    }
+  },
+
+  "documentationRules": {
+    "code": {
+      "rules": [
+        "JSDoc for public functions and components",
+        "Inline comments for complex logic only",
+        "README.md for each package/service",
+        "Keep comments updated with code changes"
+      ]
+    },
+    "api": {
+      "format": "OpenAPI/Swagger",
+      "requirements": [
+        "Document all endpoints",
+        "Include request/response examples",
+        "Document error codes",
+        "Version documentation with API"
+      ]
+    },
+    "architecture": {
+      "diagrams": [
+        "System architecture",
+        "Database schema",
+        "User flows",
+        "Deployment architecture"
+      ],
+      "rules": [
+        "Keep diagrams up-to-date",
+        "Use standard notation (UML, C4)",
+        "Include decision records"
+      ]
+    }
+  },
+
+  "accessibilityRules": {
+    "wcag": {
+      "level": "AA minimum",
+      "requirements": [
+        "Keyboard navigation for all features",
+        "Screen reader compatibility",
+        "Color contrast 4.5:1 minimum",
+        "Focus indicators visible",
+        "Alternative text for images",
+        "Form labels associated with inputs",
+        "Error messages programmatically linked",
+        "Support for prefers-reduced-motion"
+      ]
+    },
+    "testing": {
+      "tools": ["axe-core", "WAVE", "Lighthouse"],
+      "rules": [
+        "Automated accessibility testing in CI",
+        "Manual testing with screen readers",
+        "Keyboard navigation testing",
+        "Color contrast validation"
+      ]
+    }
+  },
+
+  "brandGuidelines": {
+    "voice": [
+      "Friendly but professional",
+      "Confident but not arrogant",
+      "Helpful and educational",
+      "Tech-savvy but accessible",
+      "Warm African hospitality meets modern efficiency"
+    ],
+    "imagery": [
+      "High-quality product photography",
+      "Diverse representation of Ghanaian customers",
+      "Clean, well-lit, minimal backgrounds",
+      "Consistent aspect ratios",
+      "Lifestyle images showing products in use"
+    ],
+    "logo": {
+      "minSize": "120px width",
+      "clearSpace": "Logo height × 0.5",
+      "variants": ["Full color", "White", "Dark"],
+      "rules": [
+        "Never distort or rotate",
+        "Maintain clear space",
+        "Use appropriate variant for background"
+      ]
+    }
+  },
+
+  "windsurf_instructions": {
+    "when_generating_code": [
+      "ALWAYS reference the design system for colors, typography, and spacing",
+      "ALWAYS follow naming conventions from naming.rules.md",
+      "ALWAYS implement proper TypeScript types",
+      "ALWAYS include error handling and loading states",
+      "ALWAYS follow the folder structure defined in folder-structure.md",
+      "ALWAYS implement accessibility features",
+      "ALWAYS write tests for new code",
+      "ALWAYS optimize for performance",
+      "ALWAYS follow security best practices",
+      "ALWAYS document complex logic"
+    ],
+    "when_creating_components": [
+      "Use design system tokens for styling",
+      "Implement all required states (default, hover, focus, disabled)",
+      "Add proper ARIA labels and roles",
+      "Make components responsive",
+      "Follow component structure from folder-structure.md",
+      "Include TypeScript props interface",
+      "Export named exports with barrel file",
+      "Create corresponding test file"
+    ],
+    "when_creating_api_endpoints": [
+      "Follow RESTful conventions from api.conventions.md",
+      "Implement proper validation with Zod",
+      "Return standardized response format",
+      "Use appropriate HTTP status codes",
+      "Include error handling",
+      "Add rate limiting",
+      "Document with OpenAPI/JSDoc"
+    ],
+    "when_implementing_animations": [
+      "Follow motion rules from motion.rules.json",
+      "Only animate transform and opacity",
+      "Respect prefers-reduced-motion",
+      "Use appropriate duration and easing",
+      "Test on low-end devices"
+    ],
+    "when_implementing_ux_flows": [
+      "Reference ux.flows.md for user journeys",
+      "Minimize steps to completion",
+      "Provide clear feedback",
+      "Handle errors gracefully",
+      "Implement loading states",
+      "Save user progress"
+    ],
+    "quality_checks": [
+      "TypeScript: No any types without justification",
+      "ESLint: No warnings or errors",
+      "Tests: Minimum 80% coverage",
+      "Accessibility: Pass axe-core audit",
+      "Performance: Meet Core Web Vitals targets",
+      "Security: No secrets in code, proper validation",
+      "Documentation: Public APIs documented"
+    ]
+  },
+
+  "commonPatterns": {
+    "dataFetching": {
+      "library": "React Query",
+      "pattern": "Use useQuery for GET, useMutation for POST/PUT/PATCH/DELETE",
+      "caching": "Implement proper stale-time and cache-time",
+      "errorHandling": "Use error boundaries and error states"
+    },
+    "stateManagement": {
+      "server": "React Query",
+      "client": "Zustand",
+      "rules": [
+        "Keep state as close to usage as possible",
+        "Use React Query for server state",
+        "Use Zustand for global client state",
+        "Avoid prop drilling (use context or state management)"
+      ]
+    },
+    "formHandling": {
+      "library": "React Hook Form + Zod",
+      "pattern": "Define Zod schema, use with react-hook-form",
+      "validation": "Real-time on blur, show errors inline",
+      "submission": "Optimistic UI updates, handle errors gracefully"
+    },
+    "routing": {
+      "library": "Next.js App Router",
+      "patterns": [
+        "Route groups for layouts: (auth), (shop), (account)",
+        "Dynamic routes: [slug], [id]",
+        "Parallel routes for modals",
+        "Intercepting routes for dialogs"
+      ]
+    }
+  },
+
+  "troubleshooting": {
+    "performance": {
+      "slow_page_load": [
+        "Check bundle size with webpack-bundle-analyzer",
+        "Implement code splitting",
+        "Optimize images (WebP, proper sizes)",
+        "Enable caching headers",
+        "Use CDN for static assets"
+      ],
+      "slow_api": [
+        "Check database query performance",
+        "Add database indexes",
+        "Implement caching with Redis",
+        "Optimize N+1 queries",
+        "Use database connection pooling"
+      ]
+    },
+    "bugs": {
+      "hydration_errors": [
+        "Check for server/client mismatch",
+        "Ensure consistent rendering",
+        "Use useEffect for client-only code"
+      ],
+      "memory_leaks": [
+        "Clean up useEffect subscriptions",
+        "Remove event listeners properly",
+        "Clear intervals and timeouts",
+        "Cancel pending API requests"
+      ]
+    }
+  }
+}

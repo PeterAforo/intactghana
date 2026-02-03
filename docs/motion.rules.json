@@ -1,0 +1,564 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-01-25",
+  "philosophy": {
+    "purpose": "Motion should feel natural, purposeful, and delightful without being distracting",
+    "principles": [
+      "Respect user preferences (prefers-reduced-motion)",
+      "Provide visual continuity and context",
+      "Guide user attention to important changes",
+      "Reinforce brand personality (efficient, modern, warm)",
+      "Never block functionality with animation"
+    ]
+  },
+  "durations": {
+    "instant": {
+      "value": "50ms",
+      "use": "Color transitions, opacity changes on hover",
+      "examples": ["Button hover color", "Link underline"]
+    },
+    "fast": {
+      "value": "150ms",
+      "use": "Simple state changes, micro-interactions",
+      "examples": ["Checkbox check", "Radio selection", "Icon rotation"]
+    },
+    "base": {
+      "value": "250ms",
+      "use": "Default for most UI transitions",
+      "examples": ["Button press", "Card hover", "Input focus"]
+    },
+    "moderate": {
+      "value": "350ms",
+      "use": "Complex animations, multiple properties",
+      "examples": ["Dropdown open", "Accordion expand", "Tooltip appear"]
+    },
+    "slow": {
+      "value": "500ms",
+      "use": "Page transitions, large state changes",
+      "examples": ["Modal open/close", "Drawer slide", "Page transition"]
+    },
+    "decorative": {
+      "value": "1000-2000ms",
+      "use": "Non-critical decorative animations",
+      "examples": ["Hero background animation", "Loading illustrations"],
+      "rule": "Must be pausable or have disable option"
+    }
+  },
+  "easings": {
+    "linear": {
+      "value": "cubic-bezier(0, 0, 1, 1)",
+      "use": "Continuous motion, loading spinners",
+      "feel": "Mechanical, constant speed"
+    },
+    "easeIn": {
+      "value": "cubic-bezier(0.4, 0, 1, 1)",
+      "use": "Elements leaving the screen",
+      "feel": "Starts slow, accelerates"
+    },
+    "easeOut": {
+      "value": "cubic-bezier(0, 0, 0.2, 1)",
+      "use": "Elements entering the screen (DEFAULT)",
+      "feel": "Starts fast, decelerates naturally"
+    },
+    "easeInOut": {
+      "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "use": "Elements moving within view",
+      "feel": "Smooth start and end"
+    },
+    "bounce": {
+      "value": "cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+      "use": "Playful interactions (sparingly)",
+      "feel": "Energetic, playful overshoot"
+    },
+    "spring": {
+      "value": "cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+      "use": "Success feedback, confirmations",
+      "feel": "Natural spring physics"
+    }
+  },
+  "patterns": {
+    "fadeIn": {
+      "properties": {
+        "opacity": "0 -> 1"
+      },
+      "duration": "250ms",
+      "easing": "easeOut",
+      "use": ["Content appearing", "Tooltips", "Notifications"]
+    },
+    "fadeOut": {
+      "properties": {
+        "opacity": "1 -> 0"
+      },
+      "duration": "200ms",
+      "easing": "easeIn",
+      "use": ["Content disappearing", "Dismiss actions"]
+    },
+    "slideInUp": {
+      "properties": {
+        "transform": "translateY(20px) -> translateY(0)",
+        "opacity": "0 -> 1"
+      },
+      "duration": "300ms",
+      "easing": "easeOut",
+      "use": ["Modal entry", "Drawer from bottom", "Toasts"]
+    },
+    "slideInDown": {
+      "properties": {
+        "transform": "translateY(-20px) -> translateY(0)",
+        "opacity": "0 -> 1"
+      },
+      "duration": "250ms",
+      "easing": "easeOut",
+      "use": ["Dropdown menus", "Notifications from top"]
+    },
+    "slideInRight": {
+      "properties": {
+        "transform": "translateX(100%) -> translateX(0)"
+      },
+      "duration": "300ms",
+      "easing": "easeOut",
+      "use": ["Side drawer open", "Cart panel", "Mobile menu"]
+    },
+    "slideOutRight": {
+      "properties": {
+        "transform": "translateX(0) -> translateX(100%)"
+      },
+      "duration": "250ms",
+      "easing": "easeIn",
+      "use": ["Side drawer close", "Swipe to dismiss"]
+    },
+    "scaleIn": {
+      "properties": {
+        "transform": "scale(0.95) -> scale(1)",
+        "opacity": "0 -> 1"
+      },
+      "duration": "200ms",
+      "easing": "easeOut",
+      "use": ["Modal entry", "Popover appear"]
+    },
+    "scaleOut": {
+      "properties": {
+        "transform": "scale(1) -> scale(0.95)",
+        "opacity": "1 -> 0"
+      },
+      "duration": "150ms",
+      "easing": "easeIn",
+      "use": ["Modal exit", "Popover disappear"]
+    },
+    "pulse": {
+      "properties": {
+        "transform": "scale(1) -> scale(1.05) -> scale(1)"
+      },
+      "duration": "600ms",
+      "easing": "easeInOut",
+      "iterations": "1",
+      "use": ["Success feedback", "New item highlight"]
+    },
+    "shake": {
+      "properties": {
+        "transform": "translateX(0) -> translateX(-10px) -> translateX(10px) -> translateX(0)"
+      },
+      "duration": "400ms",
+      "easing": "easeInOut",
+      "use": ["Error feedback", "Invalid input"]
+    },
+    "spin": {
+      "properties": {
+        "transform": "rotate(0deg) -> rotate(360deg)"
+      },
+      "duration": "1000ms",
+      "easing": "linear",
+      "iterations": "infinite",
+      "use": ["Loading spinners only"]
+    },
+    "shimmer": {
+      "properties": {
+        "background-position": "-1000px 0 -> 1000px 0"
+      },
+      "duration": "2000ms",
+      "easing": "linear",
+      "iterations": "infinite",
+      "use": ["Skeleton loading states"]
+    }
+  },
+  "componentAnimations": {
+    "buttons": {
+      "hover": {
+        "properties": ["background-color", "box-shadow", "transform"],
+        "duration": "150ms",
+        "easing": "easeOut",
+        "transforms": {
+          "scale": "scale(1.02)",
+          "lift": "translateY(-2px)"
+        }
+      },
+      "active": {
+        "properties": ["transform"],
+        "duration": "50ms",
+        "easing": "easeIn",
+        "transform": "scale(0.98)"
+      },
+      "loading": {
+        "showSpinner": true,
+        "disablePointer": true,
+        "opacity": "0.7"
+      }
+    },
+    "cards": {
+      "hover": {
+        "properties": ["box-shadow", "transform"],
+        "duration": "300ms",
+        "easing": "easeOut",
+        "transform": "translateY(-4px)",
+        "shadow": "shadow-sm -> shadow-lg"
+      },
+      "entry": {
+        "stagger": "50ms per item",
+        "animation": "fadeIn + slideInUp",
+        "duration": "400ms"
+      }
+    },
+    "modals": {
+      "overlay": {
+        "enter": {
+          "opacity": "0 -> 1",
+          "duration": "200ms",
+          "easing": "easeOut"
+        },
+        "exit": {
+          "opacity": "1 -> 0",
+          "duration": "150ms",
+          "easing": "easeIn"
+        }
+      },
+      "content": {
+        "enter": {
+          "animation": "scaleIn",
+          "duration": "200ms",
+          "delay": "50ms"
+        },
+        "exit": {
+          "animation": "scaleOut",
+          "duration": "150ms"
+        }
+      }
+    },
+    "dropdowns": {
+      "enter": {
+        "animation": "slideInDown",
+        "duration": "250ms",
+        "originPoint": "top"
+      },
+      "exit": {
+        "animation": "fadeOut",
+        "duration": "150ms"
+      }
+    },
+    "tooltips": {
+      "enter": {
+        "animation": "fadeIn + scaleIn",
+        "duration": "150ms",
+        "delay": "300ms"
+      },
+      "exit": {
+        "animation": "fadeOut",
+        "duration": "100ms",
+        "delay": "0ms"
+      }
+    },
+    "notifications": {
+      "enter": {
+        "animation": "slideInRight",
+        "duration": "300ms",
+        "stagger": "100ms for multiple"
+      },
+      "exit": {
+        "animation": "slideOutRight + fadeOut",
+        "duration": "250ms"
+      },
+      "autoDismiss": {
+        "progressBar": true,
+        "progressAnimation": "width 100% -> 0% linear"
+      }
+    },
+    "forms": {
+      "inputFocus": {
+        "properties": ["border-color", "box-shadow"],
+        "duration": "150ms",
+        "easing": "easeOut"
+      },
+      "errorShake": {
+        "trigger": "validation failure",
+        "animation": "shake",
+        "duration": "400ms"
+      },
+      "successPulse": {
+        "trigger": "validation success",
+        "animation": "pulse",
+        "duration": "600ms"
+      }
+    },
+    "navigation": {
+      "mobileMenu": {
+        "overlay": {
+          "enter": "fadeIn 300ms",
+          "exit": "fadeOut 250ms"
+        },
+        "panel": {
+          "enter": "slideInRight 300ms",
+          "exit": "slideOutRight 250ms"
+        },
+        "items": {
+          "stagger": "30ms per item",
+          "animation": "fadeIn + slideInRight"
+        }
+      },
+      "megaMenu": {
+        "enter": {
+          "animation": "fadeIn + slideInDown",
+          "duration": "200ms"
+        },
+        "exit": {
+          "animation": "fadeOut",
+          "duration": "150ms"
+        }
+      },
+      "tabSwitch": {
+        "indicator": {
+          "properties": ["transform", "width"],
+          "duration": "250ms",
+          "easing": "spring"
+        }
+      }
+    },
+    "productGallery": {
+      "imageSwitch": {
+        "animation": "crossfade",
+        "duration": "300ms"
+      },
+      "thumbnailHover": {
+        "properties": ["border-color", "opacity"],
+        "duration": "150ms"
+      },
+      "zoomIn": {
+        "transform": "scale(1) -> scale(2)",
+        "duration": "300ms",
+        "easing": "easeOut"
+      }
+    },
+    "cart": {
+      "addItem": {
+        "itemPulse": "600ms",
+        "badgeUpdate": "bounce 400ms",
+        "showToast": true
+      },
+      "removeItem": {
+        "animation": "slideOutRight + fadeOut",
+        "duration": "250ms"
+      },
+      "updateQuantity": {
+        "animation": "pulse",
+        "duration": "300ms"
+      }
+    },
+    "search": {
+      "resultsAppear": {
+        "animation": "fadeIn + slideInDown",
+        "duration": "200ms",
+        "stagger": "30ms per result"
+      },
+      "loading": {
+        "showSkeleton": true,
+        "animation": "shimmer"
+      }
+    },
+    "filters": {
+      "expand": {
+        "properties": ["height", "opacity"],
+        "duration": "300ms",
+        "easing": "easeInOut"
+      },
+      "checkboxCheck": {
+        "animation": "scaleIn",
+        "duration": "150ms"
+      }
+    }
+  },
+  "pageTransitions": {
+    "standard": {
+      "exit": {
+        "animation": "fadeOut",
+        "duration": "150ms"
+      },
+      "enter": {
+        "animation": "fadeIn",
+        "duration": "250ms",
+        "delay": "50ms"
+      }
+    },
+    "hierarchical": {
+      "forward": {
+        "exit": "slideOutLeft + fadeOut",
+        "enter": "slideInRight + fadeIn"
+      },
+      "back": {
+        "exit": "slideOutRight + fadeOut",
+        "enter": "slideInLeft + fadeIn"
+      },
+      "duration": "350ms"
+    }
+  },
+  "scrollAnimations": {
+    "parallax": {
+      "use": "Hero sections, feature highlights",
+      "speed": "0.5x scroll speed",
+      "maxUsage": "1-2 per page",
+      "performance": "Use transform only, not top/left"
+    },
+    "revealOnScroll": {
+      "trigger": "Element enters viewport",
+      "animation": "fadeIn + slideInUp",
+      "duration": "600ms",
+      "threshold": "0.2 (20% visible)",
+      "stagger": "100ms for lists"
+    },
+    "stickyHeader": {
+      "transition": "background, shadow",
+      "duration": "200ms",
+      "trigger": "scroll > 80px"
+    },
+    "infiniteScroll": {
+      "loadingIndicator": "Spinner at bottom",
+      "smoothInsert": "fadeIn 300ms"
+    }
+  },
+  "loadingStates": {
+    "skeleton": {
+      "animation": "shimmer",
+      "duration": "2000ms",
+      "direction": "left to right",
+      "colors": "gray-200 -> gray-300 -> gray-200"
+    },
+    "spinner": {
+      "animation": "spin",
+      "duration": "1000ms",
+      "easing": "linear"
+    },
+    "progressBar": {
+      "animation": "width 0% -> 100%",
+      "duration": "Variable based on actual progress",
+      "indeterminate": "slideInOut 1500ms infinite"
+    },
+    "fadeInContent": {
+      "duration": "300ms",
+      "delay": "50ms",
+      "easing": "easeOut"
+    }
+  },
+  "microInteractions": {
+    "likeButton": {
+      "trigger": "click",
+      "animation": "pulse + color change",
+      "duration": "400ms"
+    },
+    "addToCart": {
+      "buttonPulse": "200ms",
+      "itemFlyToCart": "600ms curved path",
+      "cartBadgeBounce": "400ms"
+    },
+    "checkbox": {
+      "check": {
+        "animation": "scaleIn + checkmark draw",
+        "duration": "200ms"
+      }
+    },
+    "radio": {
+      "select": {
+        "animation": "scaleIn inner circle",
+        "duration": "150ms"
+      }
+    },
+    "toggle": {
+      "switch": {
+        "knob": "translateX + background color",
+        "duration": "200ms",
+        "easing": "spring"
+      }
+    },
+    "starRating": {
+      "fill": {
+        "animation": "scaleIn + color change",
+        "duration": "200ms",
+        "stagger": "50ms per star"
+      }
+    }
+  },
+  "feedbackAnimations": {
+    "success": {
+      "animation": "pulse + color change to green",
+      "duration": "600ms",
+      "icon": "checkmark scale in"
+    },
+    "error": {
+      "animation": "shake + color change to red",
+      "duration": "400ms",
+      "icon": "X scale in"
+    },
+    "warning": {
+      "animation": "pulse + color change to amber",
+      "duration": "500ms",
+      "icon": "exclamation fade in"
+    },
+    "info": {
+      "animation": "fadeIn + slideInDown",
+      "duration": "300ms",
+      "icon": "i scale in"
+    }
+  },
+  "accessibility": {
+    "prefersReducedMotion": {
+      "respect": "MANDATORY",
+      "fallback": {
+        "disableAnimations": true,
+        "keepTransitions": "Only instant (50ms) or fast (150ms)",
+        "simplify": "Remove decorative motion, keep functional transitions"
+      },
+      "implementation": "@media (prefers-reduced-motion: reduce)"
+    },
+    "focusIndicators": {
+      "alwaysVisible": true,
+      "transition": "all 150ms ease-out",
+      "neverRemove": true
+    },
+    "autoplay": {
+      "requirePauseControl": true,
+      "maxDuration": "5000ms before auto-pause",
+      "respectUserPreference": true
+    }
+  },
+  "performance": {
+    "rules": {
+      "animateOnly": ["transform", "opacity"],
+      "avoid": ["width", "height", "top", "left", "margin", "padding"],
+      "useWillChange": "Sparingly, only for complex animations",
+      "removeWillChange": "After animation completes",
+      "target": "60fps (16.67ms per frame)"
+    },
+    "compositing": {
+      "promote": "Elements that animate frequently",
+      "method": "transform: translateZ(0) or will-change",
+      "cleanup": "Remove after animation"
+    }
+  },
+  "testing": {
+    "checkpoints": [
+      "Test all animations at 30fps (throttled)",
+      "Verify prefers-reduced-motion works",
+      "Check animations on low-end devices",
+      "Ensure no animation blocks functionality",
+      "Validate 60fps on target animations",
+      "Test with screen readers enabled",
+      "Verify focus states animate correctly"
+    ]
+  }
+}

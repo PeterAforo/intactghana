@@ -1,0 +1,459 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-01-25",
+  "rules": {
+    "layout": {
+      "container": {
+        "maxWidth": "1440px",
+        "padding": {
+          "mobile": "16px",
+          "tablet": "24px",
+          "desktop": "48px"
+        },
+        "margin": "0 auto"
+      },
+      "grid": {
+        "columns": 12,
+        "gap": {
+          "mobile": "16px",
+          "tablet": "24px",
+          "desktop": "24px"
+        }
+      },
+      "spacing": {
+        "unit": "4px",
+        "scale": [0, 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128, 160, 192, 256],
+        "sectionVertical": {
+          "mobile": "48px",
+          "tablet": "64px",
+          "desktop": "96px"
+        }
+      }
+    },
+    "typography": {
+      "enforceScale": true,
+      "never": [
+        "Use font sizes not in the type scale",
+        "Set line-height below 1.2 for headings",
+        "Set line-height below 1.5 for body text",
+        "Use more than 3 font weights in a single component",
+        "Use all-caps for sentences (only for labels/buttons)",
+        "Set text color below 4.5:1 contrast ratio"
+      ],
+      "always": [
+        "Use rem units for font sizes",
+        "Include fallback fonts",
+        "Set letter-spacing for large headings (-0.02em)",
+        "Use sentence case for buttons",
+        "Maintain 45-75 character line length for readability"
+      ],
+      "hierarchy": {
+        "maxLevels": 6,
+        "skipLevels": false,
+        "requirement": "Each page must have exactly one h1"
+      }
+    },
+    "colors": {
+      "usage": {
+        "primary": {
+          "purpose": "Brand identity, primary CTAs, key interactions",
+          "variants": ["intact-500", "intact-600", "intact-700"],
+          "avoid": "Text on light backgrounds (use intact-900 instead)"
+        },
+        "accent": {
+          "purpose": "Secondary CTAs, highlights, promotions",
+          "variants": ["energy-500", "energy-600"],
+          "maxPerView": 2,
+          "rule": "Never use more than 2 accent colors on single view"
+        },
+        "semantic": {
+          "success": "Confirmations, in-stock, positive feedback",
+          "warning": "Low stock, caution, important notices",
+          "error": "Errors, out of stock, critical issues",
+          "info": "Neutral information, tips, general notices"
+        }
+      },
+      "contrast": {
+        "bodyText": {
+          "minimum": "7:1",
+          "target": "AAA compliance"
+        },
+        "largeText": {
+          "minimum": "4.5:1",
+          "target": "AA compliance"
+        },
+        "interactive": {
+          "minimum": "3:1",
+          "target": "Against background"
+        }
+      },
+      "never": [
+        "Use colors not defined in design system",
+        "Use hex codes directly (always use tokens)",
+        "Use pure black (#000000) except for text",
+        "Override semantic color meanings",
+        "Use more than 4 colors in single component"
+      ]
+    },
+    "spacing": {
+      "consistency": {
+        "rule": "Always use spacing scale tokens",
+        "never": "Arbitrary spacing values",
+        "exception": "Fine-tuning within ±2px acceptable"
+      },
+      "verticalRhythm": {
+        "maintain": true,
+        "baseline": "4px",
+        "rule": "All vertical spacing must align to 4px grid"
+      },
+      "componentSpacing": {
+        "internal": "Use smaller scale (1-6)",
+        "between": "Use medium scale (6-12)",
+        "sections": "Use larger scale (16-32)"
+      }
+    },
+    "buttons": {
+      "sizing": {
+        "minHeight": {
+          "xs": "28px",
+          "sm": "36px",
+          "md": "44px",
+          "lg": "52px",
+          "xl": "60px"
+        },
+        "minWidth": {
+          "md": "120px",
+          "lg": "140px",
+          "xl": "160px"
+        },
+        "padding": {
+          "horizontal": "Scale by 1.5x vertical padding",
+          "vertical": "12px minimum for md size"
+        }
+      },
+      "states": {
+        "required": ["default", "hover", "active", "focus", "disabled"],
+        "focus": {
+          "visible": true,
+          "style": "3px solid intact-500 with 3px offset",
+          "never": "Remove focus without accessible alternative"
+        },
+        "disabled": {
+          "opacity": 0.6,
+          "cursor": "not-allowed",
+          "preventInteraction": true
+        }
+      },
+      "hierarchy": {
+        "maxPrimary": 1,
+        "maxSecondary": 2,
+        "rule": "Only one primary button per view section"
+      },
+      "text": {
+        "case": "sentence",
+        "weight": 500,
+        "never": ["ALL CAPS", "Title Case (except nav)", "Below 14px font size"]
+      }
+    },
+    "forms": {
+      "inputs": {
+        "height": {
+          "sm": "36px",
+          "md": "44px",
+          "lg": "52px"
+        },
+        "labels": {
+          "required": true,
+          "position": "above",
+          "font": "body-s (14px)",
+          "weight": 500,
+          "color": "gray-700",
+          "spacing": "8px below label"
+        },
+        "states": {
+          "default": {
+            "border": "1.5px solid gray-300",
+            "background": "white"
+          },
+          "focus": {
+            "border": "1.5px solid intact-500",
+            "ring": "3px intact-100",
+            "outline": "none"
+          },
+          "error": {
+            "border": "1.5px solid error-600",
+            "ring": "3px error-100"
+          },
+          "disabled": {
+            "background": "gray-50",
+            "cursor": "not-allowed",
+            "opacity": 0.6
+          }
+        },
+        "validation": {
+          "showOnBlur": true,
+          "inlineMessages": true,
+          "iconIndicators": true
+        }
+      },
+      "accessibility": {
+        "required": [
+          "Associate labels with inputs (for/id)",
+          "Include aria-describedby for help text",
+          "Use aria-invalid for error states",
+          "Provide aria-required for required fields"
+        ]
+      }
+    },
+    "cards": {
+      "elevation": {
+        "default": "shadow-sm",
+        "hover": "shadow-lg",
+        "active": "shadow-md",
+        "transition": "all 0.3s ease"
+      },
+      "borders": {
+        "width": "1px",
+        "color": "gray-200",
+        "radius": {
+          "sm": "8px",
+          "md": "12px",
+          "lg": "16px"
+        }
+      },
+      "padding": {
+        "sm": "16px",
+        "md": "24px",
+        "lg": "32px"
+      },
+      "productCard": {
+        "imageRatio": "1:1",
+        "titleLines": 2,
+        "descriptionLines": 3,
+        "requiredElements": ["image", "title", "price", "cta"],
+        "hoverEffect": "translateY(-4px) + shadow-lg"
+      }
+    },
+    "navigation": {
+      "header": {
+        "height": {
+          "mobile": "64px",
+          "desktop": "80px"
+        },
+        "background": "white",
+        "sticky": true,
+        "shadow": "shadow-sm when scrolled",
+        "zIndex": 1000
+      },
+      "megaMenu": {
+        "maxColumns": 4,
+        "minWidth": "200px",
+        "padding": "24px",
+        "shadow": "shadow-xl",
+        "animation": "fadeIn 200ms ease-out"
+      },
+      "mobileMenu": {
+        "width": "100vw",
+        "maxWidth": "400px",
+        "position": "fixed right",
+        "overlay": "rgba(0,0,0,0.5)",
+        "animation": "slideInRight 300ms ease-out"
+      }
+    },
+    "modals": {
+      "sizes": {
+        "sm": "400px",
+        "md": "600px",
+        "lg": "800px",
+        "xl": "1000px",
+        "full": "calc(100vw - 64px)"
+      },
+      "overlay": {
+        "background": "rgba(0, 0, 0, 0.6)",
+        "backdropBlur": "4px"
+      },
+      "animation": {
+        "enter": "scale(0.95) opacity(0) -> scale(1) opacity(1)",
+        "exit": "scale(1) opacity(1) -> scale(0.95) opacity(0)",
+        "duration": "200ms"
+      },
+      "accessibility": {
+        "trapFocus": true,
+        "closeOnEscape": true,
+        "closeOnOverlayClick": true,
+        "returnFocusOnClose": true
+      }
+    },
+    "images": {
+      "optimization": {
+        "format": "WebP with JPEG fallback",
+        "maxSize": "200KB",
+        "compression": "80% quality",
+        "lazyLoad": "Below fold images only"
+      },
+      "responsive": {
+        "required": true,
+        "method": "srcset and sizes attributes",
+        "breakpoints": [640, 768, 1024, 1280, 1536]
+      },
+      "aspectRatios": {
+        "product": ["1:1", "4:3"],
+        "banner": "16:9",
+        "hero": "21:9",
+        "thumbnail": "1:1"
+      },
+      "placeholder": {
+        "type": "blur",
+        "color": "gray-200",
+        "transition": "fade 300ms"
+      }
+    },
+    "icons": {
+      "sizes": {
+        "xs": "12px",
+        "sm": "16px",
+        "md": "20px",
+        "lg": "24px",
+        "xl": "32px",
+        "2xl": "48px"
+      },
+      "strokeWidth": "2px",
+      "style": "outlined",
+      "activeStyle": "filled",
+      "color": "inherit from parent",
+      "accessibility": {
+        "decorative": "aria-hidden='true'",
+        "functional": "Include accessible label"
+      }
+    },
+    "animations": {
+      "principles": {
+        "purposeful": "Every animation must serve UX purpose",
+        "performant": "Only animate transform and opacity",
+        "respectful": "Honor prefers-reduced-motion",
+        "subtle": "Avoid distracting motion"
+      },
+      "durations": {
+        "instant": "50ms",
+        "fast": "150ms",
+        "base": "250ms",
+        "moderate": "350ms",
+        "slow": "500ms",
+        "max": "500ms for functional, 2000ms for decorative"
+      },
+      "easings": {
+        "default": "ease-out",
+        "enter": "ease-out",
+        "exit": "ease-in",
+        "move": "ease-in-out"
+      },
+      "never": [
+        "Animate width, height, top, left directly",
+        "Use duration > 500ms for user interactions",
+        "Auto-play without pause control",
+        "Ignore prefers-reduced-motion"
+      ]
+    },
+    "loading": {
+      "skeletons": {
+        "when": "Initial page load, data fetching",
+        "shape": "Match actual content shape",
+        "animation": "pulse or shimmer",
+        "color": "gray-200 to gray-300"
+      },
+      "spinners": {
+        "when": "Button actions, small updates",
+        "size": "Relative to container",
+        "color": "Primary or white on colored buttons"
+      },
+      "progressBars": {
+        "when": "File uploads, multi-step processes",
+        "showPercentage": true,
+        "height": "8px",
+        "color": "intact-500"
+      }
+    },
+    "feedback": {
+      "toasts": {
+        "position": "top-right",
+        "duration": {
+          "success": "3000ms",
+          "error": "5000ms",
+          "info": "4000ms"
+        },
+        "maxVisible": 3,
+        "animation": "slideInRight 200ms"
+      },
+      "inline": {
+        "showIcons": true,
+        "position": "Below relevant field/action",
+        "color": "Use semantic colors"
+      }
+    },
+    "accessibility": {
+      "required": [
+        "Keyboard navigation for all interactive elements",
+        "Focus indicators with 3:1 contrast",
+        "ARIA labels for icon-only buttons",
+        "Skip navigation link",
+        "Logical heading hierarchy",
+        "Alt text for all images",
+        "Form labels associated with inputs",
+        "Error messages programmatically linked"
+      ],
+      "touchTargets": {
+        "minimum": "44px × 44px",
+        "spacing": "8px minimum between targets"
+      },
+      "colorBlindness": {
+        "rule": "Never rely on color alone to convey information",
+        "supplement": "Use icons, text labels, or patterns"
+      }
+    },
+    "darkMode": {
+      "strategy": "System preference with user override",
+      "transition": "all 200ms ease",
+      "adjustments": {
+        "reduceBrightness": "10-15%",
+        "increaseContrast": "For text readability",
+        "customShadows": "Use dark-specific shadow values",
+        "avoidPureBlack": "Use dark-950 instead of #000000"
+      }
+    },
+    "responsive": {
+      "approach": "Mobile first",
+      "breakpoints": {
+        "xs": "0px",
+        "sm": "640px",
+        "md": "768px",
+        "lg": "1024px",
+        "xl": "1280px",
+        "2xl": "1536px"
+      },
+      "touchOptimization": {
+        "increaseTargetSize": "44px minimum on mobile",
+        "addSpacing": "Prevent accidental touches",
+        "simplifyInteractions": "Reduce hover-dependent features"
+      }
+    },
+    "performance": {
+      "critical": [
+        "First Contentful Paint < 1.8s",
+        "Largest Contentful Paint < 2.5s",
+        "Total Blocking Time < 200ms",
+        "Cumulative Layout Shift < 0.1"
+      ],
+      "images": {
+        "lazyLoad": true,
+        "responsive": true,
+        "webp": true,
+        "maxSize": "200KB"
+      },
+      "animations": {
+        "useTransform": true,
+        "avoidReflow": true,
+        "hardwareAcceleration": "For smooth 60fps"
+      }
+    }
+  }
+}
