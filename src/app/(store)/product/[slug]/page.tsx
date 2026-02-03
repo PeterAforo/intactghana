@@ -19,55 +19,124 @@ interface ProductPageProps {
   params: Promise<{ slug: string }>;
 }
 
+// Mock product data for when database is unavailable
+const mockProducts: Record<string, any> = {
+  "dell-latitude-7430": {
+    id: "mock-1",
+    name: "Dell Latitude 7430 Business Laptop",
+    slug: "dell-latitude-7430",
+    brand: "Dell",
+    shortDescription: "14-inch business laptop with Intel Core i7, 16GB RAM, 512GB SSD",
+    description: "The Dell Latitude 7430 is a premium business laptop designed for professionals who demand performance and reliability. Features include a stunning 14-inch FHD display, powerful Intel Core i7 processor, 16GB DDR5 RAM, and a fast 512GB NVMe SSD.",
+    warrantyMonths: 12,
+    warrantyTerms: "1-year manufacturer warranty covering hardware defects",
+    category: { id: "cat-1", name: "Laptops", slug: "laptops" },
+    images: [],
+    variants: [{
+      id: "var-1",
+      name: "Standard",
+      price: 8500,
+      compareAtPrice: 9500,
+      isActive: true,
+      options: [],
+      stockLevels: [{ quantity: 10, reserved: 0 }],
+    }],
+    attributeValues: [
+      { id: "attr-1", value: "Intel Core i7-1265U", attribute: { name: "Processor", unit: "" } },
+      { id: "attr-2", value: "16GB DDR5", attribute: { name: "RAM", unit: "" } },
+      { id: "attr-3", value: "512GB NVMe SSD", attribute: { name: "Storage", unit: "" } },
+      { id: "attr-4", value: '14" FHD (1920x1080)', attribute: { name: "Display", unit: "" } },
+    ],
+    reviews: [],
+  },
+  "macbook-air-m2": {
+    id: "mock-2",
+    name: "MacBook Air M2 13-inch",
+    slug: "macbook-air-m2",
+    brand: "Apple",
+    shortDescription: "Apple M2 chip, 8GB RAM, 256GB SSD, Retina Display",
+    description: "The redesigned MacBook Air is more portable than ever and weighs just 2.7 pounds. The M2 chip makes everything you do fast and fluid. Get up to 18 hours of battery life.",
+    warrantyMonths: 12,
+    warrantyTerms: "1-year Apple Limited Warranty",
+    category: { id: "cat-1", name: "Laptops", slug: "laptops" },
+    images: [],
+    variants: [{
+      id: "var-2",
+      name: "Standard",
+      price: 9800,
+      compareAtPrice: null,
+      isActive: true,
+      options: [],
+      stockLevels: [{ quantity: 5, reserved: 0 }],
+    }],
+    attributeValues: [
+      { id: "attr-5", value: "Apple M2", attribute: { name: "Processor", unit: "" } },
+      { id: "attr-6", value: "8GB Unified Memory", attribute: { name: "RAM", unit: "" } },
+      { id: "attr-7", value: "256GB SSD", attribute: { name: "Storage", unit: "" } },
+      { id: "attr-8", value: '13.6" Liquid Retina', attribute: { name: "Display", unit: "" } },
+    ],
+    reviews: [],
+  },
+};
+
 async function getProduct(slug: string) {
-  const product = await db.product.findUnique({
-    where: { slug, isActive: true },
-    include: {
-      category: true,
-      images: {
-        orderBy: { sortOrder: "asc" },
-      },
-      variants: {
-        where: { isActive: true },
-        include: {
-          options: true,
-          stockLevels: true,
+  try {
+    const product = await db.product.findUnique({
+      where: { slug, isActive: true },
+      include: {
+        category: true,
+        images: {
+          orderBy: { sortOrder: "asc" },
         },
-        orderBy: { price: "asc" },
-      },
-      attributeValues: {
-        include: {
-          attribute: true,
+        variants: {
+          where: { isActive: true },
+          include: {
+            options: true,
+            stockLevels: true,
+          },
+          orderBy: { price: "asc" },
         },
-      },
-      reviews: {
-        where: { status: "APPROVED" },
-        include: {
-          user: {
-            select: {
-              firstName: true,
-              lastName: true,
-            },
+        attributeValues: {
+          include: {
+            attribute: true,
           },
         },
-        orderBy: { createdAt: "desc" },
-        take: 10,
+        reviews: {
+          where: { status: "APPROVED" },
+          include: {
+            user: {
+              select: {
+                firstName: true,
+                lastName: true,
+              },
+            },
+          },
+          orderBy: { createdAt: "desc" },
+          take: 10,
+        },
       },
-    },
-  });
-  return product;
+    });
+    return product;
+  } catch (error) {
+    console.warn("Database unavailable, using mock data for product:", slug);
+    return mockProducts[slug] || null;
+  }
 }
 
 export async function generateMetadata({ params }: ProductPageProps) {
-  const { slug } = await params;
-  const product = await getProduct(slug);
+  try {
+    const { slug } = await params;
+    const product = await getProduct(slug);
 
-  if (!product) return { title: "Product Not Found" };
+    if (!product) return { title: "Product Not Found" };
 
-  return {
-    title: product.metaTitle || product.name,
-    description: product.metaDescription || product.shortDescription,
-  };
+    return {
+      title: product.metaTitle || product.name,
+      description: product.metaDescription || product.shortDescription,
+    };
+  } catch {
+    return { title: "Product" };
+  }
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
@@ -85,11 +154,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
     : Number(lowestPrice || 0);
 
   const avgRating = product.reviews.length > 0
-    ? product.reviews.reduce((sum, r) => sum + r.rating, 0) / product.reviews.length
+    ? product.reviews.reduce((sum: number, r: { rating: number }) => sum + r.rating, 0) / product.reviews.length
     : 0;
 
-  const totalStock = product.variants.reduce((sum, v) => {
-    return sum + v.stockLevels.reduce((s, sl) => s + sl.quantity - sl.reserved, 0);
+  const totalStock = product.variants.reduce((sum: number, v: { stockLevels: Array<{ quantity: number; reserved: number }> }) => {
+    return sum + v.stockLevels.reduce((s: number, sl: { quantity: number; reserved: number }) => s + sl.quantity - sl.reserved, 0);
   }, 0);
 
   return (
@@ -236,7 +305,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               </CardHeader>
               <CardContent>
                 <dl className="divide-y">
-                  {product.attributeValues.map((av) => (
+                  {product.attributeValues.map((av: { id: string; value: string; attribute: { name: string; unit?: string } }) => (
                     <div key={av.id} className="flex py-3">
                       <dt className="w-1/3 text-sm font-medium text-muted-foreground">
                         {av.attribute.name}
