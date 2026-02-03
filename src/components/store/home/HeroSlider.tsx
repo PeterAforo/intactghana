@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -26,7 +25,7 @@ const slides: HeroSlide[] = [
     title: "Premium Electronics at Unbeatable Prices",
     subtitle: "Shop laptops, phones, appliances & more with AI-powered recommendations",
     cta: { text: "Shop Now", href: "/category/laptops" },
-    image: "/images/hero/hero-electronics.webp",
+    image: "",
     gradient: "from-blue-600 via-blue-700 to-blue-900",
   },
   {
@@ -34,7 +33,7 @@ const slides: HeroSlide[] = [
     title: "Buy Now, Pay Later with Canpay",
     subtitle: "Spread payments over 3-12 months with 0% interest",
     cta: { text: "Learn More", href: "/canpay" },
-    image: "/images/hero/hero-bnpl.webp",
+    image: "",
     gradient: "from-orange-500 via-orange-600 to-red-600",
   },
   {
@@ -42,7 +41,7 @@ const slides: HeroSlide[] = [
     title: "AI-Powered Shopping Assistant",
     subtitle: "Find the perfect product with our smart chatbot",
     cta: { text: "Try Now", href: "#ai-chat" },
-    image: "/images/hero/hero-ai.webp",
+    image: "",
     gradient: "from-purple-600 via-indigo-700 to-blue-800",
   },
 ];
@@ -181,7 +180,7 @@ export function HeroSlider() {
                     </motion.div>
                   </div>
 
-                  {/* Image */}
+                  {/* Decorative Element */}
                   <div className="relative hidden h-full items-center justify-center lg:flex">
                     <motion.div
                       initial={{ opacity: 0, scale: 0.9 }}
@@ -189,18 +188,10 @@ export function HeroSlider() {
                       transition={{ duration: 0.5, delay: 0.2 }}
                       className="relative h-[400px] w-[400px]"
                     >
-                      <div className="absolute inset-0 rounded-full bg-white/10 blur-3xl" />
-                      <Image
-                        src={currentSlide.image}
-                        alt={currentSlide.title}
-                        fill
-                        className="object-contain drop-shadow-2xl"
-                        priority
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src = "/images/placeholder-product.png";
-                        }}
-                      />
+                      <div className="absolute inset-0 rounded-full bg-white/20 blur-3xl" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="h-64 w-64 rounded-full border-4 border-white/30" />
+                      </div>
                     </motion.div>
                   </div>
                 </div>
